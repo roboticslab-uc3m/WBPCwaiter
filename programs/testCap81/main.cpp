@@ -76,8 +76,8 @@ int main(void) {
 
 
     /** Configuring LEFT ARM **/
-    yarp::dev::IControlMode2 *leftArmIControlMode2;
-    yarp::dev::IPositionControl2 *leftArmIPositionControl2;
+    yarp::dev::IControlMode *leftArmIControlMode;
+    yarp::dev::IPositionControl *leftArmIPositionControl;
     yarp::dev::IEncoders *leftArmIEncoders;
     yarp::os::Property leftArmOptions;
     leftArmOptions.put("device","remote_controlboard");
@@ -92,15 +92,15 @@ int main(void) {
         return false;
     }
 
-    if (!leftArmDevice.view(leftArmIControlMode2) ) { // connecting our device with "control mode 2" interface, initializing which control mode we want (position)
+    if (!leftArmDevice.view(leftArmIControlMode) ) { // connecting our device with "control mode 2" interface, initializing which control mode we want (position)
         printf("[warning] Problems acquiring leftArmPos interface\n");
         return false;
     } else printf("[success] Acquired leftArmPos interface\n");
 
-    if (!leftArmDevice.view(leftArmIPositionControl2) ) { // connecting our device with "position control 2" interface (configuring our device: speed, acceleration... and sending joint positions)
-        printf("[warning] Problems acquiring leftArmIControlMode2 interface\n");
+    if (!leftArmDevice.view(leftArmIPositionControl) ) { // connecting our device with "position control 2" interface (configuring our device: speed, acceleration... and sending joint positions)
+        printf("[warning] Problems acquiring leftArmIControlMode interface\n");
         return false;
-    } else printf("[success] Acquired leftArmIControlMode2 interface\n");
+    } else printf("[success] Acquired leftArmIControlMode interface\n");
 
     if (!leftArmDevice.view(leftArmIEncoders) ) {
         printf("[warning] Problems acquiring iEncoders interface\n");
@@ -109,16 +109,16 @@ int main(void) {
 
     /** Set control modes **/
     int leftArmAxes;
-    leftArmIPositionControl2->getAxes(&leftArmAxes);
+    leftArmIPositionControl->getAxes(&leftArmAxes);
     std::vector<int> leftArmControlModes(leftArmAxes,VOCAB_CM_POSITION);
-    if(! leftArmIControlMode2->setControlModes( leftArmControlModes.data() )){
+    if(! leftArmIControlMode->setControlModes( leftArmControlModes.data() )){
         printf("[warning] Problems setting position control mode of: left-arm\n");
         return false;
     }
     /** Conection between zmpTEOwrist & jr3Thread **/
     jr3Thread.setIEncodersControl(leftArmIEncoders);
-    jr3Thread.setIPositionControl2(leftArmIPositionControl2);
-    //jr3Thread.setIVelocityControl2(leftArmIVelocityControl2);
+    jr3Thread.setIPositionControl(leftArmIPositionControl);
+    //jr3Thread.setIVelocityControl(leftArmIVelocityControl);
 
 
     /** Solver device */

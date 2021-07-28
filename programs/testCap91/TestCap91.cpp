@@ -113,7 +113,7 @@ bool TestCap91::configure(ResourceFinder &rf) {
         return false;
     } else printf("[success] Acquired rightArmIEncoders interface\n");
     if (!rightArmDevice.view(rightArmIControlMode) ) { // connecting our device with "control mode" interface, initializing which control mode we want (position)
-        printf("[warning] Problems acquiring rightArmIControlMode2 interface\n");
+        printf("[warning] Problems acquiring rightArmIControlMode interface\n");
         return false;
     } else printf("[success] Acquired rightArmIControlMode interface\n");
     if (!rightArmDevice.view(rightArmIPositionControl) ) { // connecting our device with "position control" interface (configuring our device: speed, acceleration... and sending joint positions)
@@ -140,7 +140,7 @@ bool TestCap91::configure(ResourceFinder &rf) {
         return false;
     } else printf("[success] Acquired trunkIEncoders interface\n");
     if (!trunkDevice.view(trunkIControlMode) ) { // connecting our device with "control mode" interface, initializing which control mode we want (position)
-        printf("[warning] Problems acquiring trunkIControlMode2 interface\n");
+        printf("[warning] Problems acquiring trunkIControlMode interface\n");
         return false;
     } else printf("[success] Acquired trunkIControlMode interface\n");
 
@@ -198,7 +198,7 @@ bool TestCap91::configure(ResourceFinder &rf) {
     if (!rightLegDevice.view(rightLegIControlMode) ) { // connecting our device with "control mode" interface, initializing which control mode we want (position)
         printf("[warning] Problems acquiring rightLegIControlMode interface\n");
         return false;
-    } else printf("[success] Acquired rightLegIControlMode2 interface\n");
+    } else printf("[success] Acquired rightLegIControlMode interface\n");
     if (!rightLegDevice.view(rightLegIPositionControl) ) { // connecting our device with "position control" interface (configuring our device: speed, acceleration... and sending joint positions)
         printf("[warning] Problems acquiring rightLegIPositionControl interface\n");
         return false;

@@ -58,13 +58,13 @@ class ThreadImpl : public yarp::os::Thread {
         this->rightLegIEncoders = iRightLegEncoders;
         this->leftLegIEncoders = iLeftLegEncoders;        }
 
-    void setIPositionControl2(IPositionControl2 *iRightLegPositionControl2,IPositionControl2 *iLeftLegPositionControl2) {
-        this->rightLegIPositionControl2 = iRightLegPositionControl2;
-        this->leftLegIPositionControl2 = iLeftLegPositionControl2;        }
+    void setIPositionControl(IPositionControl *iRightLegPositionControl,IPositionControl *iLeftLegPositionControl) {
+        this->rightLegIPositionControl = iRightLegPositionControl;
+        this->leftLegIPositionControl = iLeftLegPositionControl;        }
 
-    void setIVelocityControl2(IVelocityControl2 *iRightLegVelocityControl2,IVelocityControl2 *iLeftLegVelocityControl2) {
-        this->rightLegIVelocityControl2 = iRightLegVelocityControl2;
-        this->leftLegIVelocityControl2 = iLeftLegVelocityControl2;        }
+    void setIVelocityControl(IVelocityControl *iRightLegVelocityControl,IVelocityControl *iLeftLegVelocityControl) {
+        this->rightLegIVelocityControl = iRightLegVelocityControl;
+        this->leftLegIVelocityControl = iLeftLegVelocityControl;        }
 
     void setInputPorts(yarp::os::Port *inputPortImu) {
         this->portImu = inputPortImu;   }
@@ -153,12 +153,12 @@ class ThreadImpl : public yarp::os::Thread {
         yarp::dev::PolyDriver headDevice;
         /** Encoders **/
         yarp::dev::IEncoders *headIEncoders;
-        /** Head ControlMode2 Interface */
-        yarp::dev::IControlMode2 *headIControlMode2;
-        /** Head PositionControl2 Interface */
-        yarp::dev::IPositionControl2 *headIPositionControl2; // para control en posicion
-        /** Head VelocityControl2 Interface */
-        yarp::dev::IVelocityControl2 *headIVelocityControl2; // para control en velocidad
+        /** Head ControlMode Interface */
+        yarp::dev::IControlMode *headIControlMode;
+        /** Head PositionControl Interface */
+        yarp::dev::IPositionControl *headIPositionControl; // para control en posicion
+        /** Head VelocityControl Interface */
+        yarp::dev::IVelocityControl *headIVelocityControl; // para control en velocidad
 
         /** Axes number **/
         int numLeftArmJoints;
@@ -166,12 +166,12 @@ class ThreadImpl : public yarp::os::Thread {
         yarp::dev::PolyDriver leftArmDevice;
         /** Encoders **/
         yarp::dev::IEncoders *leftArmIEncoders;
-        /** Left Arm ControlMode2 Interface */
-        yarp::dev::IControlMode2 *leftArmIControlMode2;
-        /** Left Arm PositionControl2 Interface */
-        yarp::dev::IPositionControl2 *leftArmIPositionControl2; // para control en posicion
-        /** Left Arm VelocityControl2 Interface */
-        yarp::dev::IVelocityControl2 *leftArmIVelocityControl2; // para control en velocidad
+        /** Left Arm ControlMode Interface */
+        yarp::dev::IControlMode *leftArmIControlMode;
+        /** Left Arm PositionControl Interface */
+        yarp::dev::IPositionControl *leftArmIPositionControl; // para control en posicion
+        /** Left Arm VelocityControl Interface */
+        yarp::dev::IVelocityControl *leftArmIVelocityControl; // para control en velocidad
         /** FT 3 AnalogSensor Interface */
         yarp::dev::IAnalogSensor *ft3AnalogSensor;
 
@@ -181,12 +181,12 @@ class ThreadImpl : public yarp::os::Thread {
         yarp::dev::PolyDriver rightArmDevice;
         /** Encoders **/
         yarp::dev::IEncoders *rightArmIEncoders;
-        /** Right Arm ControlMode2 Interface */
-        yarp::dev::IControlMode2 *rightArmIControlMode2;
-        /** Right Arm PositionControl2 Interface */
-        yarp::dev::IPositionControl2 *rightArmIPositionControl2; // para control en posicion
-        /** Right Arm VelocityControl2 Interface */
-        yarp::dev::IVelocityControl2 *rightArmIVelocityControl2; // para control en velocidad
+        /** Right Arm ControlMode Interface */
+        yarp::dev::IControlMode *rightArmIControlMode;
+        /** Right Arm PositionControl Interface */
+        yarp::dev::IPositionControl *rightArmIPositionControl; // para control en posicion
+        /** Right Arm VelocityControl Interface */
+        yarp::dev::IVelocityControl *rightArmIVelocityControl; // para control en velocidad
         /** FT 2 AnalogSensor Interface */
         yarp::dev::IAnalogSensor *ft2AnalogSensor;
 
@@ -197,12 +197,12 @@ class ThreadImpl : public yarp::os::Thread {
         yarp::dev::PolyDriver trunkDevice;
         /** Encoders **/
         yarp::dev::IEncoders *trunkIEncoders;
-        /** Trunk ControlMode2 Interface */
-        yarp::dev::IControlMode2 *trunkIControlMode2;
-        /** Trunk PositionControl2 Interface */
-        yarp::dev::IPositionControl2 *trunkIPositionControl2; // para control en posicion
-        /** Trunk VelocityControl2 Interface */
-        yarp::dev::IVelocityControl2 *trunkIVelocityControl2; // para control en velocidad
+        /** Trunk ControlMode Interface */
+        yarp::dev::IControlMode *trunkIControlMode;
+        /** Trunk PositionControl Interface */
+        yarp::dev::IPositionControl *trunkIPositionControl; // para control en posicion
+        /** Trunk VelocityControl Interface */
+        yarp::dev::IVelocityControl *trunkIVelocityControl; // para control en velocidad
 
         /** Axes number **/
         int numLeftLegJoints;
@@ -210,12 +210,12 @@ class ThreadImpl : public yarp::os::Thread {
         yarp::dev::PolyDriver leftLegDevice;
         /** Encoders **/
         yarp::dev::IEncoders *leftLegIEncoders;
-        /** Left Leg ControlMode2 Interface */
-        yarp::dev::IControlMode2 *leftLegIControlMode2;
-        /** Left Leg PositionControl2 Interface */
-        yarp::dev::IPositionControl2 *leftLegIPositionControl2; // para control en posicion
-        /** Left Leg VelocityControl2 Interface */
-        yarp::dev::IVelocityControl2 *leftLegIVelocityControl2; // para control en velocidad
+        /** Left Leg ControlMode Interface */
+        yarp::dev::IControlMode *leftLegIControlMode;
+        /** Left Leg PositionControl Interface */
+        yarp::dev::IPositionControl *leftLegIPositionControl; // para control en posicion
+        /** Left Leg VelocityControl Interface */
+        yarp::dev::IVelocityControl *leftLegIVelocityControl; // para control en velocidad
         /** FT 1 AnalogSensor Interface */
         yarp::dev::IAnalogSensor *ft1AnalogSensor;
 
@@ -225,12 +225,12 @@ class ThreadImpl : public yarp::os::Thread {
         yarp::dev::PolyDriver rightLegDevice;
         /** Encoders **/
         yarp::dev::IEncoders *rightLegIEncoders;
-        /** Right Leg ControlMode2 Interface */
-        yarp::dev::IControlMode2 *rightLegIControlMode2;
-        /** Right Leg PositionControl2 Interface */
-        yarp::dev::IPositionControl2 *rightLegIPositionControl2; // para control en posicion
-        /** Right Leg VelocityControl2 Interface */
-        yarp::dev::IVelocityControl2 *rightLegIVelocityControl2; // para control en velocidad
+        /** Right Leg ControlMode Interface */
+        yarp::dev::IControlMode *rightLegIControlMode;
+        /** Right Leg PositionControl Interface */
+        yarp::dev::IPositionControl *rightLegIPositionControl; // para control en posicion
+        /** Right Leg VelocityControl Interface */
+        yarp::dev::IVelocityControl *rightLegIVelocityControl; // para control en velocidad
         /** FT 0 AnalogSensor Interface */
         yarp::dev::IAnalogSensor *ft0AnalogSensor;
 

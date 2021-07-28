@@ -380,11 +380,11 @@ void ThreadImpl::evaluateModel(std::vector<double> &rightLegQs,std::vector<doubl
 /************************************************************************/
 void ThreadImpl::setJoints()        /** Position control **/
 {
-    //rightLegIPositionControl2->positionMove(4, _ang_out); // position in degrees
-    //leftLegIPositionControl2->positionMove(4, _ang_out);
+    //rightLegIPositionControl->positionMove(4, _ang_out); // position in degrees
+    //leftLegIPositionControl->positionMove(4, _ang_out);
   if (n<450){
-    rightLegIVelocityControl2->velocityMove(4, -vel); // velocity in degrees per second
-    leftLegIVelocityControl2->velocityMove(4, -vel);
+    rightLegIVelocityControl->velocityMove(4, -vel); // velocity in degrees per second
+    leftLegIVelocityControl->velocityMove(4, -vel);
   }
 }
 
@@ -483,19 +483,19 @@ void ThreadImpl::setIEncodersControl(IEncoders *iRightLegEncoders,IEncoders *iLe
 }
 
 /************************************************************************/
-void ThreadImpl::setIPositionControl2(IPositionControl2 *iRightLegPositionControl2,IPositionControl2 *iLeftLegPositionControl2,IPositionControl2 *iTrunkPositionControl2)
+void ThreadImpl::setIPositionControl(IPositionControl *iRightLegPositionControl,IPositionControl *iLeftLegPositionControl,IPositionControl *iTrunkPositionControl)
 {
-    this->rightLegIPositionControl2 = iRightLegPositionControl2;
-    this->leftLegIPositionControl2 = iLeftLegPositionControl2;
-    this->trunkIPositionControl2 = iTrunkPositionControl2;
+    this->rightLegIPositionControl = iRightLegPositionControl;
+    this->leftLegIPositionControl = iLeftLegPositionControl;
+    this->trunkIPositionControl = iTrunkPositionControl;
 }
 
 /************************************************************************/
-void ThreadImpl::setIVelocityControl2(IVelocityControl2 *iRightLegVelocityControl2,IVelocityControl2 *iLeftLegVelocityControl2,IVelocityControl2 *iTrunkVelocityControl2)
+void ThreadImpl::setIVelocityControl(IVelocityControl *iRightLegVelocityControl,IVelocityControl *iLeftLegVelocityControl,IVelocityControl *iTrunkVelocityControl)
 {
-    this->rightLegIVelocityControl2 = iRightLegVelocityControl2;
-    this->leftLegIVelocityControl2 = iLeftLegVelocityControl2;
-    this->trunkIVelocityControl2 = iTrunkVelocityControl2;
+    this->rightLegIVelocityControl = iRightLegVelocityControl;
+    this->leftLegIVelocityControl = iLeftLegVelocityControl;
+    this->trunkIVelocityControl = iTrunkVelocityControl;
 }
 
 /************************************************************************/

@@ -12,30 +12,30 @@ yarp::os::Port portImu;
 
 /** Left Leg Device */
 yarp::dev::PolyDriver leftLegDevice;
-/** Left Leg ControlMode2 Interface */
-yarp::dev::IControlMode2 *leftLegIControlMode2;
-/** Left Leg PositionControl2 Interface */
-yarp::dev::IPositionControl2 *leftLegIPositionControl2; // para control en posicion
-/** Left Leg VelocityControl2 Interface */
-yarp::dev::IVelocityControl2 *leftLegIVelocityControl2; // para control en velocidad
+/** Left Leg ControlMode Interface */
+yarp::dev::IControlMode *leftLegIControlMode;
+/** Left Leg PositionControl Interface */
+yarp::dev::IPositionControl *leftLegIPositionControl; // para control en posicion
+/** Left Leg VelocityControl Interface */
+yarp::dev::IVelocityControl *leftLegIVelocityControl; // para control en velocidad
 
 /** Right Leg Device */
 yarp::dev::PolyDriver rightLegDevice;
-/** Right Leg ControlMode2 Interface */
-yarp::dev::IControlMode2 *rightLegIControlMode2;
-/** Right Leg PositionControl2 Interface */
-yarp::dev::IPositionControl2 *rightLegIPositionControl2; // para control en posicion
-/** Right Leg VelocityControl2 Interface */
-yarp::dev::IVelocityControl2 *rightLegIVelocityControl2; // para control en velocidad
+/** Right Leg ControlMode Interface */
+yarp::dev::IControlMode *rightLegIControlMode;
+/** Right Leg PositionControl Interface */
+yarp::dev::IPositionControl *rightLegIPositionControl; // para control en posicion
+/** Right Leg VelocityControl Interface */
+yarp::dev::IVelocityControl *rightLegIVelocityControl; // para control en velocidad
 
 /** Trunk Device */
 yarp::dev::PolyDriver trunkDevice;
-/** Trunk ControlMode2 Interface */
-yarp::dev::IControlMode2 *trunkIControlMode2;
-/** Trunk PositionControl2 Interface */
-yarp::dev::IPositionControl2 *trunkIPositionControl2; // para control en posicion
-/** Trunk VelocityControl2 Interface */
-yarp::dev::IVelocityControl2 *trunkIVelocityControl2; // para control en velocidad
+/** Trunk ControlMode Interface */
+yarp::dev::IControlMode *trunkIControlMode;
+/** Trunk PositionControl Interface */
+yarp::dev::IPositionControl *trunkIPositionControl; // para control en posicion
+/** Trunk VelocityControl Interface */
+yarp::dev::IVelocityControl *trunkIVelocityControl; // para control en velocidad
 
 class MyRateThread : public RateThread
 {
@@ -269,11 +269,11 @@ public:
     if(n>=300)    {
         cout << endl << "HIP STRATEGY\n"  << endl;
 
-        leftLegIVelocityControl2->velocityMove(4, -pid_output_ankle);     //Left Ankle
+        leftLegIVelocityControl->velocityMove(4, -pid_output_ankle);     //Left Ankle
         Time::delay(0.005);
-        rightLegIVelocityControl2->velocityMove(4, -pid_output_ankle);    //Right Ankle
+        rightLegIVelocityControl->velocityMove(4, -pid_output_ankle);    //Right Ankle
         Time::delay(0.005);
-        trunkIVelocityControl2->velocityMove(1, pid_output_hip);        //Hip
+        trunkIVelocityControl->velocityMove(1, pid_output_hip);        //Hip
         Time::delay(0.005);
     }
 
@@ -284,30 +284,30 @@ public:
         {
             cout << endl << "ANKLE STRATEGY\n"  << endl;
 
-            leftLegIVelocityControl2->velocityMove(4, -pid_output_ankle);     //Left Ankle
+            leftLegIVelocityControl->velocityMove(4, -pid_output_ankle);     //Left Ankle
             Time::delay(0.005);
-            rightLegIVelocityControl2->velocityMove(4, -pid_output_ankle);    //Right Ankle
+            rightLegIVelocityControl->velocityMove(4, -pid_output_ankle);    //Right Ankle
             Time::delay(0.005);
-            trunkIVelocityControl2->velocityMove(1, 0); // no tengo claro el cero        //Hip
+            trunkIVelocityControl->velocityMove(1, 0); // no tengo claro el cero        //Hip
             Time::delay(0.005);
         }
         else                                                    ///Hip strategy
         {
             cout << endl << "HIP STRATEGY\n"  << endl;
 
-            leftLegIVelocityControl2->velocityMove(4, -pid_output_ankle);     //Left Ankle
+            leftLegIVelocityControl->velocityMove(4, -pid_output_ankle);     //Left Ankle
             Time::delay(0.005);
-            rightLegIVelocityControl2->velocityMove(4, -pid_output_ankle);    //Right Ankle
+            rightLegIVelocityControl->velocityMove(4, -pid_output_ankle);    //Right Ankle
             Time::delay(0.005);
-            trunkIVelocityControl2->velocityMove(1, pid_output_hip);        //Hip
+            trunkIVelocityControl->velocityMove(1, pid_output_hip);        //Hip
             Time::delay(0.005);
 
         }
     }
 
     /*        //-- ANKLE STRATEGY
-    rightLegIPositionControl2->positionMove(4, _angle_ref); // position in degrees
-    leftLegIPositionControl2->positionMove(4, _angle_ref);
+    rightLegIPositionControl->positionMove(4, _angle_ref); // position in degrees
+    leftLegIPositionControl->positionMove(4, _angle_ref);
 */
 
     /*        //-- HIP STRATEGY
@@ -334,29 +334,29 @@ public:
         {
             cout << endl << "ANKLE STRATEGY\n"  << endl;
 
-            leftLegIVelocityControl2->velocityMove(4, -pid_output_ankle);     //Left Ankle
+            leftLegIVelocityControl->velocityMove(4, -pid_output_ankle);     //Left Ankle
             Time::delay(0.005);
-            rightLegIVelocityControl2->velocityMove(4, -pid_output_ankle);    //Right Ankle
+            rightLegIVelocityControl->velocityMove(4, -pid_output_ankle);    //Right Ankle
             Time::delay(0.005);
-            //trunkIVelocityControl2->velocityMove(1, pid_output_hip);         //Hip
+            //trunkIVelocityControl->velocityMove(1, pid_output_hip);         //Hip
             //Time::delay(0.005);
         }
         else                                                    //Hip strategy
         {
             cout << endl << "HIP STRATEGY\n"  << endl;
 
-            leftLegIVelocityControl2->velocityMove(4, -pid_output_ankle);     //Left Ankle
+            leftLegIVelocityControl->velocityMove(4, -pid_output_ankle);     //Left Ankle
             Time::delay(0.005);
-            rightLegIVelocityControl2->velocityMove(4, -pid_output_ankle);    //Right Ankle
+            rightLegIVelocityControl->velocityMove(4, -pid_output_ankle);    //Right Ankle
             Time::delay(0.005);
-            trunkIVelocityControl2->velocityMove(1, pid_output_hip);        //Hip
+            trunkIVelocityControl->velocityMove(1, pid_output_hip);        //Hip
             Time::delay(0.005);
 
         }
     }
                 //-- ANKLE STRATEGY
-        rightLegIPositionControl2->positionMove(4, _angle_ref); // position in degrees
-        leftLegIPositionControl2->positionMove(4, _angle_ref);
+        rightLegIPositionControl->positionMove(4, _angle_ref); // position in degrees
+        leftLegIPositionControl->positionMove(4, _angle_ref);
 
 
                 //-- HIP STRATEGY

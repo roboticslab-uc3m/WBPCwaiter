@@ -334,8 +334,8 @@ void ThreadImpl::evaluateModel()        /** Calculating OUTPUT (Qi) of the legs.
 /************************************************************************/
 void ThreadImpl::setJoints()        /** Position control **/
 {
-    rightLegIPositionControl2->positionMove(4, _ang_out); // position in degrees
-    leftLegIPositionControl2->positionMove(4, _ang_out);
+    rightLegIPositionControl->positionMove(4, _ang_out); // position in degrees
+    leftLegIPositionControl->positionMove(4, _ang_out);
 }
 
 /************************************************************************/
@@ -395,17 +395,17 @@ void ThreadImpl::setIEncodersControl(IEncoders *iRightLegEncoders, IEncoders *iL
 }
 
 /************************************************************************/
-void ThreadImpl::setIPositionControl2(IPositionControl2 *iRightLegPositionControl2,IPositionControl2 *iLeftLegPositionControl2)
+void ThreadImpl::setIPositionControl(IPositionControl *iRightLegPositionControl,IPositionControl *iLeftLegPositionControl)
 {
-    this->rightLegIPositionControl2 = iRightLegPositionControl2;
-    this->leftLegIPositionControl2 = iLeftLegPositionControl2;
+    this->rightLegIPositionControl = iRightLegPositionControl;
+    this->leftLegIPositionControl = iLeftLegPositionControl;
 }
 
 /************************************************************************/
-void ThreadImpl::setIVelocityControl2(IVelocityControl2 *iRightLegVelocityControl2,IVelocityControl2 *iLeftLegVelocityControl2)
+void ThreadImpl::setIVelocityControl(IVelocityControl *iRightLegVelocityControl,IVelocityControl *iLeftLegVelocityControl)
 {
-    this->rightLegIVelocityControl2 = iRightLegVelocityControl2;
-    this->leftLegIVelocityControl2 = iLeftLegVelocityControl2;
+    this->rightLegIVelocityControl = iRightLegVelocityControl;
+    this->leftLegIVelocityControl = iLeftLegVelocityControl;
 }
 
 /************************************************************************/

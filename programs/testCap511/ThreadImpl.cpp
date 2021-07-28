@@ -129,7 +129,7 @@ void ThreadImpl::preprogrammedInitTrajectory()
     CD_INFO("numRobotJoints: %d.\n",numLeftArmJoints);*/
 
     double initpos[7] = {-30,-1,0,-90,0,30,0};
-    leftArmIPositionControl2->positionMove(initpos);
+    leftArmIPositionControl->positionMove(initpos);
     yarp::os::Time::delay(15);
     printf("...........ESTOY AQUI............\n");
 
@@ -158,7 +158,7 @@ void ThreadImpl::preprogrammedInitTrajectory()
     if ( ! leftArmICartesianSolver->invKin(desX_AAS,befQ,desQ) )    {
         CD_ERROR("invKin failed.\n");    }
 
-    if( ! leftArmIPositionControl2->positionMove( desQ.data() )) {
+    if( ! leftArmIPositionControl->positionMove( desQ.data() )) {
         CD_WARNING("setPositions failed, not updating control this iteration.\n");    }
 
     yarp::os::Time::delay(5);
@@ -170,9 +170,9 @@ void ThreadImpl::preprogrammedInitTrajectory()
         return;    }
 
     double initspe[7] = {10.0,10.0,10.0,10.0,10.0,10.0,0.0}; // --set NEW ref speed
-    leftArmIPositionControl2->setRefSpeeds(initspe);
+    leftArmIPositionControl->setRefSpeeds(initspe);
     double initacc[7] = {10.0,10.0,10.0,10.0,10.0,10,0.0}; // --set NEW ref accelaration
-    leftArmIPositionControl2->setRefAccelerations(initacc);
+    leftArmIPositionControl->setRefAccelerations(initacc);
 
 
     fprintf(fp,"fx,fy,fz,Mx,My,Mz,Xzmp,Yzmp,CX3,CX4,CX5,CX6,TX1,TY1,TX2,TY2,act_time");
@@ -531,7 +531,7 @@ void ThreadImpl::LIPM3d(){          /** Control - Joint Position Calculus    **/
     if ( ! leftArmICartesianSolver->invKin(desX_AAS,curQ,desQ) )    {
         CD_ERROR("invKin failed.\n");    }
 
-    if( ! leftArmIPositionControl2->positionMove( desQ.data() )) {
+    if( ! leftArmIPositionControl->positionMove( desQ.data() )) {
         CD_WARNING("setPositions failed, not updating control this iteration.\n");    }
 
 //    yarp::os::Time::delay(3);

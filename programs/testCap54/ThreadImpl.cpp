@@ -19,13 +19,13 @@ bool ThreadImpl::threadInit() {
     double initspe[7] = {2.0,2.0,2.0,2.0,2.0,2.0,0.0}; // --set NEW ref speed
     //double initspe[7] = {10.0,10.0,10.0,10.0,10.0,10.0,0.0}; // --set NEW ref speed
     //double initspe[7] = {20.0,20.0,20.0,20.0,20.0,20.0,0.0}; // --set NEW ref speed
-    leftLegIPositionControl2->setRefSpeeds(initspe);
-    rightLegIPositionControl2->setRefSpeeds(initspe);
+    leftLegIPositionControl->setRefSpeeds(initspe);
+    rightLegIPositionControl->setRefSpeeds(initspe);
     double initacc[7] = {2.0,2.0,2.0,2.0,2.0,2.0,0.0}; // --set NEW ref accelaration
     //double initacc[7] = {10.0,10.0,10.0,10.0,10.0,10,0.0}; // --set NEW ref accelaration
     //double initacc[7] = {20.0,20.0,20.0,20.0,20.0,20,0.0}; // --set NEW ref accelaration
-    leftLegIPositionControl2->setRefAccelerations(initacc);
-    rightLegIPositionControl2->setRefAccelerations(initacc);
+    leftLegIPositionControl->setRefAccelerations(initacc);
+    rightLegIPositionControl->setRefAccelerations(initacc);
 
     leftLegIEncoders->getAxes(&numLeftLegJoints);
     rightLegIEncoders->getAxes(&numRightLegJoints);
@@ -249,8 +249,8 @@ void ThreadImpl::evaluateModel(std::vector<double> &rightLegQs,std::vector<doubl
 /************************************************************************/
 void ThreadImpl::setJoints()        /** Position control **/
 {
-    rightLegIPositionControl2->positionMove(4, _ang_out); // position in degrees
-    leftLegIPositionControl2->positionMove(4, _ang_out);
+    rightLegIPositionControl->positionMove(4, _ang_out); // position in degrees
+    leftLegIPositionControl->positionMove(4, _ang_out);
 }
 
 /************************************************************************/

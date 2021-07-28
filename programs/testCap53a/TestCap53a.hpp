@@ -61,12 +61,12 @@ private:
     yarp::dev::PolyDriver trunkDevice;
     /** Encoders **/
     yarp::dev::IEncoders *trunkIEncoders;
-    /** Trunk ControlMode2 Interface */
-    yarp::dev::IControlMode2 *trunkIControlMode2;
-    /** Trunk PositionControl2 Interface */
-    yarp::dev::IPositionControl2 *trunkIPositionControl2; // para control en posicion
-    /** Trunk VelocityControl2 Interface */
-    yarp::dev::IVelocityControl2 *trunkIVelocityControl2; // para control en velocidad
+    /** Trunk ControlMode Interface */
+    yarp::dev::IControlMode *trunkIControlMode;
+    /** Trunk PositionControl Interface */
+    yarp::dev::IPositionControl *trunkIPositionControl; // para control en posicion
+    /** Trunk VelocityControl Interface */
+    yarp::dev::IVelocityControl *trunkIVelocityControl; // para control en velocidad
     /** Trunk TorqueControl Interface */
     yarp::dev::ITorqueControl *trunkITorqueControl; // para control en torque
 
@@ -76,12 +76,12 @@ private:
     yarp::dev::PolyDriver leftLegDevice;
     /** Encoders **/
     yarp::dev::IEncoders *leftLegIEncoders;
-    /** Left Leg ControlMode2 Interface */
-    yarp::dev::IControlMode2 *leftLegIControlMode2;
-    /** Left Leg PositionControl2 Interface */
-    yarp::dev::IPositionControl2 *leftLegIPositionControl2; // para control en posicion
-    /** Left Leg VelocityControl2 Interface */
-    yarp::dev::IVelocityControl2 *leftLegIVelocityControl2; // para control en velocidad
+    /** Left Leg ControlMode Interface */
+    yarp::dev::IControlMode *leftLegIControlMode;
+    /** Left Leg PositionControl Interface */
+    yarp::dev::IPositionControl *leftLegIPositionControl; // para control en posicion
+    /** Left Leg VelocityControl Interface */
+    yarp::dev::IVelocityControl *leftLegIVelocityControl; // para control en velocidad
     /** Left Leg TorqueControl Interface */
     yarp::dev::ITorqueControl *leftLegITorqueControl; // para control en torque
 
@@ -91,12 +91,12 @@ private:
     yarp::dev::PolyDriver rightLegDevice;
     /** Encoders **/
     yarp::dev::IEncoders *rightLegIEncoders;
-    /** Right Leg ControlMode2 Interface */
-    yarp::dev::IControlMode2 *rightLegIControlMode2;
-    /** Right Leg PositionControl2 Interface */
-    yarp::dev::IPositionControl2 *rightLegIPositionControl2; // para control en posicion
-    /** Right Leg VelocityControl2 Interface */
-    yarp::dev::IVelocityControl2 *rightLegIVelocityControl2; // para control en velocidad
+    /** Right Leg ControlMode Interface */
+    yarp::dev::IControlMode *rightLegIControlMode;
+    /** Right Leg PositionControl Interface */
+    yarp::dev::IPositionControl *rightLegIPositionControl; // para control en posicion
+    /** Right Leg VelocityControl Interface */
+    yarp::dev::IVelocityControl *rightLegIVelocityControl; // para control en velocidad
     /** Right Leg TorqueControl Interface */
     yarp::dev::ITorqueControl *rightLegITorqueControl; // para control en torque
 

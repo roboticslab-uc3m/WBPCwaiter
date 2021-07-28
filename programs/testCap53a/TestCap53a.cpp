@@ -53,22 +53,22 @@ bool TestCap53a::configure(ResourceFinder &rf) {
         printf("[warning] Problems acquiring trunkIEncoders interface\n");
         return false;
     } else printf("[success] Acquired trunkIEncoders interface\n");
-    if (!trunkDevice.view(trunkIControlMode2) ) { // connecting our device with "control mode 2" interface, initializing which control mode we want (position)
-        printf("[warning] Problems acquiring trunkIControlMode2 interface\n");
+    if (!trunkDevice.view(trunkIControlMode) ) { // connecting our device with "control mode 2" interface, initializing which control mode we want (position)
+        printf("[warning] Problems acquiring trunkIControlMode interface\n");
         return false;
-    } else printf("[success] Acquired trunkIControlMode2 interface\n");
-    if (!trunkDevice.view(trunkIPositionControl2) ) { // connecting our device with "position control 2" interface (configuring our device: speed, acceleration... and sending joint positions)
-        printf("[warning] Problems acquiring trunkIPositionControl2 interface\n");
+    } else printf("[success] Acquired trunkIControlMode interface\n");
+    if (!trunkDevice.view(trunkIPositionControl) ) { // connecting our device with "position control 2" interface (configuring our device: speed, acceleration... and sending joint positions)
+        printf("[warning] Problems acquiring trunkIPositionControl interface\n");
         return false;
-    } else printf("[success] Acquired trunkIPositionControl2 interface\n");
-    if (!trunkDevice.view(trunkIVelocityControl2) ) { // connecting our device with "velocity control 2" interface
-        printf("[warning] Problems acquiring trunkIVelocityControl2 interface\n");
+    } else printf("[success] Acquired trunkIPositionControl interface\n");
+    if (!trunkDevice.view(trunkIVelocityControl) ) { // connecting our device with "velocity control 2" interface
+        printf("[warning] Problems acquiring trunkIVelocityControl interface\n");
         return false;
-    } else printf("[success] Acquired trunkIVelocityControl2 interface\n");
+    } else printf("[success] Acquired trunkIVelocityControl interface\n");
     if (!trunkDevice.view(trunkITorqueControl) ) { // connecting our device with "torque control 2" interface
-        printf("[warning] Problems acquiring trunkITorqueControl2 interface\n");
+        printf("[warning] Problems acquiring trunkITorqueControl interface\n");
         return false;
-    } else printf("[success] Acquired trunkITorqueControl2 interface\n");
+    } else printf("[success] Acquired trunkITorqueControl interface\n");
     /** **************************************************************************************
      * ******************************************************************************** **/
 
@@ -88,23 +88,23 @@ bool TestCap53a::configure(ResourceFinder &rf) {
         printf("[warning] Problems acquiring leftLegIEncoders interface\n");
         return false;
     } else printf("[success] Acquired leftLegIEncoders interface\n");
-    if (!leftLegDevice.view(leftLegIControlMode2) ) { // connecting our device with "control mode 2" interface, initializing which control mode we want (position)
-        printf("[warning] Problems acquiring leftLegIControlMode2 interface\n");
+    if (!leftLegDevice.view(leftLegIControlMode) ) { // connecting our device with "control mode 2" interface, initializing which control mode we want (position)
+        printf("[warning] Problems acquiring leftLegIControlMode interface\n");
         return false;
-    } else printf("[success] Acquired leftLegIControlMode2 interface\n");
+    } else printf("[success] Acquired leftLegIControlMode interface\n");
 
-/*    if (!leftLegDevice.view(leftLegIPositionControl2) ) { // connecting our device with "position control 2" interface (configuring our device: speed, acceleration... and sending joint positions)
-        printf("[warning] Problems acquiring leftLegIPositionControl2 interface\n");
+/*    if (!leftLegDevice.view(leftLegIPositionControl) ) { // connecting our device with "position control 2" interface (configuring our device: speed, acceleration... and sending joint positions)
+        printf("[warning] Problems acquiring leftLegIPositionControl interface\n");
         return false;
-    } else printf("[success] Acquired leftLegIPositionControl2 interface\n");
-    if (!leftLegDevice.view(leftLegIVelocityControl2) ) { // connecting our device with "velocity control 2" interface
-        printf("[warning] Problems acquiring leftLegIVelocityControl2 interface\n");
+    } else printf("[success] Acquired leftLegIPositionControl interface\n");
+    if (!leftLegDevice.view(leftLegIVelocityControl) ) { // connecting our device with "velocity control 2" interface
+        printf("[warning] Problems acquiring leftLegIVelocityControl interface\n");
         return false;
-    } else printf("[success] Acquired leftLegIVelocityControl2 interface\n");*/
+    } else printf("[success] Acquired leftLegIVelocityControl interface\n");*/
     if (!leftLegDevice.view(leftLegITorqueControl) ) { // connecting our device with "torque control 2" interface
-        printf("[warning] Problems acquiring leftLegITorqueControl2 interface\n");
+        printf("[warning] Problems acquiring leftLegITorqueControl interface\n");
         return false;
-    } else printf("[success] Acquired leftLegITorqueControl2 interface\n");
+    } else printf("[success] Acquired leftLegITorqueControl interface\n");
     /** **************************************************************************************
      * ******************************************************************************** **/
 
@@ -124,62 +124,62 @@ bool TestCap53a::configure(ResourceFinder &rf) {
         printf("[warning] Problems acquiring rightLegIEncoders interface\n");
         return false;
     } else printf("[success] Acquired rightLegIEncoders interface\n");
-    if (!rightLegDevice.view(rightLegIControlMode2) ) { // connecting our device with "control mode 2" interface, initializing which control mode we want (position)
-        printf("[warning] Problems acquiring rightLegIControlMode2 interface\n");
+    if (!rightLegDevice.view(rightLegIControlMode) ) { // connecting our device with "control mode 2" interface, initializing which control mode we want (position)
+        printf("[warning] Problems acquiring rightLegIControlMode interface\n");
         return false;
-    } else printf("[success] Acquired rightLegIControlMode2 interface\n");
-/*    if (!rightLegDevice.view(rightLegIPositionControl2) ) { // connecting our device with "position control 2" interface (configuring our device: speed, acceleration... and sending joint positions)
-        printf("[warning] Problems acquiring rightLegIPositionControl2 interface\n");
+    } else printf("[success] Acquired rightLegIControlMode interface\n");
+/*    if (!rightLegDevice.view(rightLegIPositionControl) ) { // connecting our device with "position control 2" interface (configuring our device: speed, acceleration... and sending joint positions)
+        printf("[warning] Problems acquiring rightLegIPositionControl interface\n");
         return false;
-    } else printf("[success] Acquired rightLegIPositionControl2 interface\n");
-    if (!rightLegDevice.view(rightLegIVelocityControl2) ) { // connecting our device with "velocity control 2" interface
-        printf("[warning] Problems acquiring rightLegIVelocityControl2 interface\n");
+    } else printf("[success] Acquired rightLegIPositionControl interface\n");
+    if (!rightLegDevice.view(rightLegIVelocityControl) ) { // connecting our device with "velocity control 2" interface
+        printf("[warning] Problems acquiring rightLegIVelocityControl interface\n");
         return false;
-    } else printf("[success] Acquired rightLegIVelocityControl2 interface\n");*/
+    } else printf("[success] Acquired rightLegIVelocityControl interface\n");*/
     if (!rightLegDevice.view(rightLegITorqueControl) ) { // connecting our device with "torque control 2" interface
-        printf("[warning] Problems acquiring rightLegITorqueControl2 interface\n");
+        printf("[warning] Problems acquiring rightLegITorqueControl interface\n");
         return false;
-    } else printf("[success] Acquired rightLegITorqueControl2 interface\n");
+    } else printf("[success] Acquired rightLegITorqueControl interface\n");
     /** **************************************************************************************
      * ******************************************************************************** **/
 
 
     // ----- SET POSITION CONTROL MODE -----
-/*    trunkIPositionControl2->getAxes(&numTrunkJoints);
+/*    trunkIPositionControl->getAxes(&numTrunkJoints);
     std::vector<int> trunkControlModes(numTrunkJoints,VOCAB_CM_POSITION);
-    if(! trunkIControlMode2->setControlModes( trunkControlModes.data() )){
+    if(! trunkIControlMode->setControlModes( trunkControlModes.data() )){
         printf("[warning] Problems setting position control mode of: trunk\n");
         return false;
     }
-    leftLegIPositionControl2->getAxes(&numLeftLegJoints);
+    leftLegIPositionControl->getAxes(&numLeftLegJoints);
     std::vector<int> leftLegControlModes(numLeftLegJoints,VOCAB_CM_POSITION);
-    if(! leftLegIControlMode2->setControlModes( leftLegControlModes.data() )){
+    if(! leftLegIControlMode->setControlModes( leftLegControlModes.data() )){
         printf("[warning] Problems setting position control mode of: left-Leg\n");
         return false;
     }
-    rightLegIPositionControl2->getAxes(&numRightLegJoints);
+    rightLegIPositionControl->getAxes(&numRightLegJoints);
     std::vector<int> rightLegControlModes(numRightLegJoints,VOCAB_CM_POSITION);
-    if(! rightLegIControlMode2->setControlModes(rightLegControlModes.data())){
+    if(! rightLegIControlMode->setControlModes(rightLegControlModes.data())){
         printf("[warning] Problems setting position control mode of: right-Leg\n");
         return false;
     }*/
 
     // ----- SET VELOCITY CONTROL MODE -----
-/*    trunkIVelocityControl2->getAxes(&numTrunkJoints);
+/*    trunkIVelocityControl->getAxes(&numTrunkJoints);
     std::vector<int> trunkControlModes(numTrunkJoints,VOCAB_CM_VELOCITY);
-    if(! trunkIControlMode2->setControlModes( trunkControlModes.data() )){
+    if(! trunkIControlMode->setControlModes( trunkControlModes.data() )){
         printf("[warning] Problems setting velocity control mode of: trunk\n");
         return false;
     }
-    leftLegIVelocityControl2->getAxes(&numLeftLegJoints);
+    leftLegIVelocityControl->getAxes(&numLeftLegJoints);
     std::vector<int> leftLegControlModes(numLeftLegJoints,VOCAB_CM_VELOCITY);
-    if(! leftLegIControlMode2->setControlModes( leftLegControlModes.data() )){
+    if(! leftLegIControlMode->setControlModes( leftLegControlModes.data() )){
         printf("[warning] Problems setting velocity control mode of: left-Leg\n");
         return false;
     }
-    rightLegIVelocityControl2->getAxes(&numRightLegJoints);
+    rightLegIVelocityControl->getAxes(&numRightLegJoints);
     std::vector<int> rightLegControlModes(numRightLegJoints,VOCAB_CM_VELOCITY);
-    if(! rightLegIControlMode2->setControlModes(rightLegControlModes.data())){
+    if(! rightLegIControlMode->setControlModes(rightLegControlModes.data())){
         printf("[warning] Problems setting velocity control mode of: right-Leg\n");
         return false;
     }*/
@@ -187,19 +187,19 @@ bool TestCap53a::configure(ResourceFinder &rf) {
     // ----- SET TORQUE CONTROL MODE -----
     trunkITorqueControl->getAxes(&numTrunkJoints);
 /*    std::vector<int> trunkControlModes(numTrunkJoints,VOCAB_CM_TORQUE);
-    if(! trunkIControlMode2->setControlModes( trunkControlModes.data() )){
+    if(! trunkIControlMode->setControlModes( trunkControlModes.data() )){
         printf("[warning] Problems setting torque control mode of: trunk\n");
         return false;
     } else printf("[success] Set torque control mode of: trunk\n");*/
     leftLegITorqueControl->getAxes(&numLeftLegJoints);
 /*    std::vector<int> leftLegControlModes(numLeftLegJoints,VOCAB_CM_TORQUE);
-    if(! leftLegIControlMode2->setControlModes( leftLegControlModes.data() )){
+    if(! leftLegIControlMode->setControlModes( leftLegControlModes.data() )){
         printf("[warning] Problems setting torque control mode of: left-Leg\n");
         return false;
     } else printf("[success] Set torque control mode of: left-Leg\n");*/
     rightLegITorqueControl->getAxes(&numRightLegJoints);
 /*    std::vector<int> rightLegControlModes(numRightLegJoints,VOCAB_CM_TORQUE);
-    if(! rightLegIControlMode2->setControlModes(rightLegControlModes.data())){
+    if(! rightLegIControlMode->setControlModes(rightLegControlModes.data())){
         printf("[warning] Problems setting torque control mode of: right-Leg\n");
         return false;
     } else printf("[success] Set torque control mode of: right-Leg\n");*/
@@ -310,8 +310,8 @@ bool TestCap53a::configure(ResourceFinder &rf) {
     //-- Conection between TestCap53 & ThreadImpl
     //threadImpl.setNumJoints(numLeftArmJoints);
     threadImpl.setIEncodersControl(rightLegIEncoders,leftLegIEncoders,trunkIEncoders);
-    threadImpl.setIPositionControl2(rightLegIPositionControl2,leftLegIPositionControl2,trunkIPositionControl2);
-    threadImpl.setIVelocityControl2(rightLegIVelocityControl2,leftLegIVelocityControl2,trunkIVelocityControl2); // no se utiliza de momento
+    threadImpl.setIPositionControl(rightLegIPositionControl,leftLegIPositionControl,trunkIPositionControl);
+    threadImpl.setIVelocityControl(rightLegIVelocityControl,leftLegIVelocityControl,trunkIVelocityControl); // no se utiliza de momento
     threadImpl.setITorqueControl(rightLegITorqueControl,leftLegITorqueControl,trunkITorqueControl); // no se utiliza de momento
     threadImpl.setICartesianSolver(rightLegICartesianSolver,leftLegICartesianSolver,trunkICartesianSolver);
     threadImpl.setInputPorts(&portImu,&portft0,&portft1,&portft2,&portft3);

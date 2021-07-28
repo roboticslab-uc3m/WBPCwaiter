@@ -34,11 +34,11 @@ bool ThreadImpl::threadInit() {
     //double initspe[7] = {2.0,2.0,2.0,2.0,2.0,2.0,0.0}; // --set NEW ref speed
     double initspe[7] = {10.0,10.0,10.0,10.0,10.0,10.0,0.0}; // --set NEW ref speed
     //double initspe[7] = {20.0,20.0,20.0,20.0,20.0,20.0,0.0}; // --set NEW ref speed
-    leftLegIPositionControl2->setRefSpeeds(initspe);
+    leftLegIPositionControl->setRefSpeeds(initspe);
     //double initacc[7] = {2.0,2.0,2.0,2.0,2.0,2.0,0.0}; // --set NEW ref accelaration
     double initacc[7] = {10.0,10.0,10.0,10.0,10.0,10,0.0}; // --set NEW ref accelaration
     //double initacc[7] = {20.0,20.0,20.0,20.0,20.0,20,0.0}; // --set NEW ref accelaration
-    leftLegIPositionControl2->setRefAccelerations(initacc);
+    leftLegIPositionControl->setRefAccelerations(initacc);
 
 return true;
 }
@@ -350,8 +350,8 @@ void ThreadImpl::evaluateModel()        /** Calculating OUTPUT (Qi) of the legs.
 /************************************************************************/
 void ThreadImpl::setJoints()        /** Position control **/
 {
-    rightLegIPositionControl2->positionMove(4, _ang_out); // position in degrees
-    leftLegIPositionControl2->positionMove(4, _ang_out);
+    rightLegIPositionControl->positionMove(4, _ang_out); // position in degrees
+    leftLegIPositionControl->positionMove(4, _ang_out);
 }
 
 /************************************************************************/
@@ -418,17 +418,17 @@ void ThreadImpl::setIEncodersControl(IEncoders *iRightLegEncoders, IEncoders *iL
 }
 
 /************************************************************************/
-void ThreadImpl::setIPositionControl2(IPositionControl2 *iRightLegPositionControl2,IPositionControl2 *iLeftLegPositionControl2)
+void ThreadImpl::setIPositionControl(IPositionControl *iRightLegPositionControl,IPositionControl *iLeftLegPositionControl)
 {
-    this->rightLegIPositionControl2 = iRightLegPositionControl2;
-    this->leftLegIPositionControl2 = iLeftLegPositionControl2;
+    this->rightLegIPositionControl = iRightLegPositionControl;
+    this->leftLegIPositionControl = iLeftLegPositionControl;
 }
 
 /************************************************************************/
-void ThreadImpl::setIVelocityControl2(IVelocityControl2 *iRightLegVelocityControl2,IVelocityControl2 *iLeftLegVelocityControl2)
+void ThreadImpl::setIVelocityControl(IVelocityControl *iRightLegVelocityControl,IVelocityControl *iLeftLegVelocityControl)
 {
-    this->rightLegIVelocityControl2 = iRightLegVelocityControl2;
-    this->leftLegIVelocityControl2 = iLeftLegVelocityControl2;
+    this->rightLegIVelocityControl = iRightLegVelocityControl;
+    this->leftLegIVelocityControl = iLeftLegVelocityControl;
 }
 
 /************************************************************************/

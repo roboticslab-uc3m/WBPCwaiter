@@ -91,8 +91,8 @@ public:
 
     void setIEncodersControl(yarp::dev::IEncoders *iEncoders) {
         this->leftArmIEncoders = iEncoders;        }
-    void setIPositionControl2(yarp::dev::IPositionControl2 *iPositionControl2) {
-        this->leftArmIPositionControl2 = iPositionControl2;        }
+    void setIPositionControl(yarp::dev::IPositionControl *iPositionControl) {
+        this->leftArmIPositionControl = iPositionControl;        }
     void setICartesianSolver(roboticslab::ICartesianSolver *iCartesianSolver) {
         this->iCartesianSolver = iCartesianSolver;        }
 
@@ -146,7 +146,7 @@ private:
     } _tray, _off;
 
     //-- Robot device
-    yarp::dev::IPositionControl2 *leftArmIPositionControl2;
+    yarp::dev::IPositionControl *leftArmIPositionControl;
     yarp::dev::IEncoders *leftArmIEncoders;
 
     //-- Solver device

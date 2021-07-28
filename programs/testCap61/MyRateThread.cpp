@@ -18,10 +18,10 @@ bool MyRateThread::threadInit(){
     CD_INFO("numRobotJoints: %d.\n",numRobotJoints);
 
     /** ----- generate initial movement --------------- **/
-    //leftArmIPositionControl2->setPositionMode();
+    //leftArmIPositionControl->setPositionMode();
     printf("begin MOVE TO START POSITION\n");
     double initpos[7] = {-30,0,0,-90,0,30,0};
-    leftArmIPositionControl2->positionMove(initpos);
+    leftArmIPositionControl->positionMove(initpos);
 
     /*
     //posicionamiento temporal hasta arreglar set poss
@@ -35,7 +35,7 @@ bool MyRateThread::threadInit(){
     bool done = false;
     while( ! done )    {
         yarp::os::Time::delay(0.5);
-        leftArmIPositionControl2->checkMotionDone(&done);
+        leftArmIPositionControl->checkMotionDone(&done);
         printf(".");
         fflush(stdout);
     }
@@ -49,7 +49,7 @@ bool MyRateThread::threadInit(){
 
     /** ----- set NEW ref speed --------------- **/
     double initspe[7] = {10.0,10.0,10.0,10.0,10.0,10.0,0.0};
-    if(!leftArmIPositionControl2->setRefSpeeds(initspe)){
+    if(!leftArmIPositionControl->setRefSpeeds(initspe)){
         CD_WARNING("[Error] Problems setting reference speed on left-arm joints.\n");
         return false;
     }
@@ -57,7 +57,7 @@ bool MyRateThread::threadInit(){
 
     /** ----- set NEW ref accelaration --------------- **/
     double initacc[7] = {10.0,10.0,10.0,10.0,10.0,10,0.0};
-    if(!leftArmIPositionControl2->setRefAccelerations(initacc)){
+    if(!leftArmIPositionControl->setRefAccelerations(initacc)){
         CD_WARNING("[Error] Problems setting reference acceleration on left-arm joints.\n");
         return false;
     }

@@ -108,8 +108,8 @@ void ThreadImpl::homeTrajectory(){       /** Set home waiter poss & Initial VEL-
 
     // Moving leftArm & trunk to the waiter homePoss
 /*    double initpos[7] = {-30,0,0,-90,0,30,0};
-    leftArmIPositionControl2->positionMove(initpos);
-    trunkIPositionControl2->positionMove(1,-2.5);
+    leftArmIPositionControl->positionMove(initpos);
+    trunkIPositionControl->positionMove(1,-2.5);
     yarp::os::Time::delay(10);*/
 
     // Obtaining waiter homePoss in Cartesian Space
@@ -131,7 +131,7 @@ void ThreadImpl::homeTrajectory(){       /** Set home waiter poss & Initial VEL-
     KinRepresentation::encodePose(desX, desX_AAS, KinRepresentation::coordinate_system::CARTESIAN, KinRepresentation::orientation_system::AXIS_ANGLE, KinRepresentation::angular_units::DEGREES);
     if ( ! leftArmICartesianSolver->invKin(desX_AAS,iniQ,desQ) )    {
         CD_ERROR("invKin failed.\n");    }
-    /*if( ! leftArmIPositionControl2->positionMove( desQ.data() )) {
+    /*if( ! leftArmIPositionControl->positionMove( desQ.data() )) {
         CD_WARNING("setPositions failed, not updating control this iteration.\n");    }*/
 
     yarp::os::Time::delay(0.5);
@@ -634,7 +634,7 @@ void ThreadImpl::LIPM3d(){          /** Control - Joint Position Calculus    **/
                 if ( ! leftArmICartesianSolver->invKin(desX_AAS,curQ,desQ) )    {
                     CD_ERROR("invKin failed.\n");    }
 
-                if( ! leftArmIPositionControl2->positionMove( desQ.data() )) {
+                if( ! leftArmIPositionControl->positionMove( desQ.data() )) {
                     CD_WARNING("setPositions failed, not updating control this iteration.\n");      }
 
                  // calculo del vector unitario de rotacion
@@ -658,7 +658,7 @@ void ThreadImpl::LIPM3d(){          /** Control - Joint Position Calculus    **/
                 if ( ! leftArmIEncoders->getEncoders( curQ.data() ) )    { //obtencion de los valores articulares (encoders absolutos)
                     CD_WARNING("getEncoders failed, not updating control this iteration.\n");
                     return;    }
-                if( ! leftArmIPositionControl2->positionMove( curQ.data() )) {
+                if( ! leftArmIPositionControl->positionMove( curQ.data() )) {
                     CD_WARNING("setPositions failed, not updating control this iteration.\n");      }
 
                 printf("THE BOTTLE IS IN EQUILIBRIUM \n");
@@ -671,7 +671,7 @@ void ThreadImpl::LIPM3d(){          /** Control - Joint Position Calculus    **/
             if ( ! leftArmIEncoders->getEncoders( curQ.data() ) )    { //obtencion de los valores articulares (encoders absolutos)
                 CD_WARNING("getEncoders failed, not updating control this iteration.\n");
                 return;    }
-            if( ! leftArmIPositionControl2->positionMove( curQ.data() )) {
+            if( ! leftArmIPositionControl->positionMove( curQ.data() )) {
                 CD_WARNING("setPositions failed, not updating control this iteration.\n");      }
 
             printf("ME HE PASADO TRES PUEBLOS \n");
@@ -700,7 +700,7 @@ void ThreadImpl::LIPM3d(){          /** Control - Joint Position Calculus    **/
     if ( ! leftArmICartesianSolver->invKin(desX_AAS,befQ,desQ) )    {
         CD_ERROR("invKin failed.\n");    }
 
-    if( ! leftArmIPositionControl2->positionMove( desQ.data() )) {
+    if( ! leftArmIPositionControl->positionMove( desQ.data() )) {
         CD_WARNING("setPositions failed, not updating control this iteration.\n");    }*/
 
     return;
