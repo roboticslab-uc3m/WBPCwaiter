@@ -13,6 +13,8 @@ endif(COMMAND cmake_policy)
 
 project(WBPC_WAITER)
 
+set(CMAKE_CXX_STANDARD 14)
+
 ### options: cpp libraries
 
 ### options: cpp programs

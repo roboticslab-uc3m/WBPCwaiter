@@ -153,7 +153,7 @@ private:
 
     // -------------------------------------------------------------------------------------
 
-    /** Lelt Arm ControlLimits2 Interface */
+    /** Lelt Arm ControlLimits Interface */
     yarp::dev::IControlLimits *leftArmIControlLimits;
     /** Solver device **/
     yarp::dev::PolyDriver leftArmSolverDevice;
@@ -161,7 +161,7 @@ private:
     /** Forward Kinematic function **/
     bool getleftArmFwdKin(std::vector<double> *currentX);
 
-    /** Right Arm ControlLimits2 Interface */
+    /** Right Arm ControlLimits Interface */
     yarp::dev::IControlLimits *rightArmIControlLimits;
     /** Solver device **/
     yarp::dev::PolyDriver rightArmSolverDevice;
