@@ -18,7 +18,7 @@
 #include <deque>
 #include <iomanip>
 #include <fstream>
-#include "ColorDebug.hpp"
+#include "ColorDebug.h"
 
 #include "ICartesianSolver.h"
 
@@ -36,10 +36,10 @@ static FILE *fp;
  * @brief ZMP_tray computation from left arm FT sensor
  *
  */
-class MyRateThread : public yarp::os::RateThread
+class MyRateThread : public yarp::os::PeriodicThread
 {
 public:
-    MyRateThread():RateThread(TS*1000.0){
+    MyRateThread():PeriodicThread(TS*1000.0){
         a = 0;
         b = 0;
         w = 0;

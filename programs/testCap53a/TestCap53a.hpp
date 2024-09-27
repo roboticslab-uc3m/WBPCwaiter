@@ -1,6 +1,6 @@
 // -*- mode:C++; tab-width:4; c-basic-offset:4; indent-tabs-mode:nil -*-
 
-#ifndef __FM_TESTCAP53A_HPP__ 
+#ifndef __FM_TESTCAP53A_HPP__
 #define __FM_TESTCAP53A_HPP__
 
 #include <math.h>
@@ -19,7 +19,7 @@
 #include <signal.h>
 #include <sys/ioctl.h>
 #include <cmath>
-#include "ColorDebug.hpp"
+#include "ColorDebug.h"
 #include <iomanip>
 
 #include "KinematicRepresentation.hpp"
@@ -42,7 +42,7 @@ namespace roboticslab
  *
  * @brief testCap53a.
  *
- */   
+ */
 class TestCap53a : public RFModule {
 private:
     ThreadImpl threadImpl;

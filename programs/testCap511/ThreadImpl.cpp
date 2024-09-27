@@ -195,64 +195,64 @@ void ThreadImpl::readSensors(){     /** Reading input messages from SENSORS    *
 /*        //--- FT-Sensor 0 right leg
     Bottle ch0;
     portFt0->read(ch0); // lectura del sensor JR3 ch0 - right foot
-    _FTRightFoot._initF.fx = ch0.get(0).asDouble();
-    _FTRightFoot._initF.fy = ch0.get(1).asDouble();
-    _FTRightFoot._initF.fz = ch0.get(2).asDouble();
-    _FTRightFoot._initT.mx = ch0.get(3).asDouble();
-    _FTRightFoot._initT.my = ch0.get(4).asDouble();
-    _FTRightFoot._initT.mz = ch0.get(5).asDouble();*/
+    _FTRightFoot._initF.fx = ch0.get(0).asFloat64();
+    _FTRightFoot._initF.fy = ch0.get(1).asFloat64();
+    _FTRightFoot._initF.fz = ch0.get(2).asFloat64();
+    _FTRightFoot._initT.mx = ch0.get(3).asFloat64();
+    _FTRightFoot._initT.my = ch0.get(4).asFloat64();
+    _FTRightFoot._initT.mz = ch0.get(5).asFloat64();*/
 
 /*        //--- FT-Sensor 1 left leg
     Bottle ch1;
     portFt1->read(ch1); // lectura del sensor JR3 ch1 - left foot
-    _FTLeftFoot._initF.fx = ch1.get(0).asDouble();
-    _FTLeftFoot._initF.fy = ch1.get(1).asDouble();
-    _FTLeftFoot._initF.fz = ch1.get(2).asDouble();
-    _FTLeftFoot._initT.mx = ch1.get(3).asDouble();
-    _FTLeftFoot._initT.my = ch1.get(4).asDouble();
-    _FTLeftFoot._initT.mz = ch1.get(5).asDouble();*/
+    _FTLeftFoot._initF.fx = ch1.get(0).asFloat64();
+    _FTLeftFoot._initF.fy = ch1.get(1).asFloat64();
+    _FTLeftFoot._initF.fz = ch1.get(2).asFloat64();
+    _FTLeftFoot._initT.mx = ch1.get(3).asFloat64();
+    _FTLeftFoot._initT.my = ch1.get(4).asFloat64();
+    _FTLeftFoot._initT.mz = ch1.get(5).asFloat64();*/
 
 /*        //--- FT-Sensor 2 right hand
     Bottle ch2;
     portFt2->read(ch2); // lectura del sensor JR3 ch2 - right hand
-    _FTRightHand._initF.fx = ch2.get(0).asDouble();
-    _FTRightHand._initF.fy = ch2.get(1).asDouble();
-    _FTRightHand._initF.fx = ch2.get(2).asDouble();
-    _FTRightHand._initT.mx = ch2.get(3).asDouble();
-    _FTRightHand._initT.my = ch2.get(4).asDouble();
-    _FTRightHand._initT.mz = ch2.get(5).asDouble();*/
+    _FTRightHand._initF.fx = ch2.get(0).asFloat64();
+    _FTRightHand._initF.fy = ch2.get(1).asFloat64();
+    _FTRightHand._initF.fx = ch2.get(2).asFloat64();
+    _FTRightHand._initT.mx = ch2.get(3).asFloat64();
+    _FTRightHand._initT.my = ch2.get(4).asFloat64();
+    _FTRightHand._initT.mz = ch2.get(5).asFloat64();*/
 
     //--- FT-Sensor 3 left hand
     Bottle ch3;
     portFt3->read(ch3); // lectura del sensor JR3 ch3 - left hand
-    _FTLeftHand._initF.fx = ch3.get(0).asDouble();
-    _FTLeftHand._initF.fy = ch3.get(1).asDouble();
-    _FTLeftHand._initF.fz = ch3.get(2).asDouble();
-    _FTLeftHand._initT.mx = ch3.get(3).asDouble();
-    _FTLeftHand._initT.my = ch3.get(4).asDouble();
-    _FTLeftHand._initT.mz = ch3.get(5).asDouble();
+    _FTLeftHand._initF.fx = ch3.get(0).asFloat64();
+    _FTLeftHand._initF.fy = ch3.get(1).asFloat64();
+    _FTLeftHand._initF.fz = ch3.get(2).asFloat64();
+    _FTLeftHand._initT.mx = ch3.get(3).asFloat64();
+    _FTLeftHand._initT.my = ch3.get(4).asFloat64();
+    _FTLeftHand._initT.mz = ch3.get(5).asFloat64();
 
 /*        //--- Inertial-Sensor
     Bottle imu;
     portImu->read(imu); // lectura del sensor IMU
-    ang_x = imu.get(0).asDouble(); // Angulo en X [deg]
-    ang_y = imu.get(1).asDouble(); // Angulo en Y [deg]
-    ang_z = imu.get(2).asDouble(); // Angulo en Z [deg]
-    acc_x = imu.get(3).asDouble(); //Linear acceleration in X [m/s^2]
+    ang_x = imu.get(0).asFloat64(); // Angulo en X [deg]
+    ang_y = imu.get(1).asFloat64(); // Angulo en Y [deg]
+    ang_z = imu.get(2).asFloat64(); // Angulo en Z [deg]
+    acc_x = imu.get(3).asFloat64(); //Linear acceleration in X [m/s^2]
     x_sensor.push_front(acc_x);
     x_sensor.pop_back();
-    acc_y = imu.get(4).asDouble(); //Linear acceleration in Y [m/s^2]
+    acc_y = imu.get(4).asFloat64(); //Linear acceleration in Y [m/s^2]
     y_sensor.push_front(acc_y);
     y_sensor.pop_back();
-    acc_z = imu.get(5).asDouble(); //Linear acceleration in Z [m/s^2]
+    acc_z = imu.get(5).asFloat64(); //Linear acceleration in Z [m/s^2]
     z_sensor.push_front(acc_z);
     z_sensor.pop_back();
-    spd_x=imu.get(6).asDouble(); // Velocidad angular en X [deg/s]
-    spd_y=imu.get(7).asDouble(); // Velocidad angular en Y [deg/s]
-    spd_z=imu.get(8).asDouble(); // Velocidad angular en Z [deg/s]
-    //mag_x=imu.get(9).asDouble(); // Campo magnetico en X
-    //mag_y=imu.get(10).asDouble(); // Campo magnetico en Y
-    //mag_z=imu.get(11).asDouble(); // Campo magnetico en Z
+    spd_x=imu.get(6).asFloat64(); // Velocidad angular en X [deg/s]
+    spd_y=imu.get(7).asFloat64(); // Velocidad angular en Y [deg/s]
+    spd_z=imu.get(8).asFloat64(); // Velocidad angular en Z [deg/s]
+    //mag_x=imu.get(9).asFloat64(); // Campo magnetico en X
+    //mag_y=imu.get(10).asFloat64(); // Campo magnetico en Y
+    //mag_z=imu.get(11).asFloat64(); // Campo magnetico en Z
 
     //LOW-PASS FILTER
     ddx = 0.0;

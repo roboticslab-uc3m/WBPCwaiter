@@ -4,15 +4,15 @@
 
 the idea is make the first step for a body balance control for the waiter.
 this TestCap61 start with the verification of previous TestCap54. we evaluate
-the mechanic features of the Cart-Table model comparing the ZMP_FT (DLIPM) 
+the mechanic features of the Cart-Table model comparing the ZMP_FT (DLIPM)
 with the ZMP_IMU (CT):
 
 
-the purpose is generate different test (changing the ZMP_ref from 0.01m 
+the purpose is generate different test (changing the ZMP_ref from 0.01m
 to 0.09m). and then calculate the mechanical errors related to the CT model.
 
 
-the process is the other way around. with the value of the ZMP fixed by 
+the process is the other way around. with the value of the ZMP fixed by
 the DLIPM model, we define the physical values ​​of the robot for the CT model.
 
 
@@ -257,8 +257,8 @@ bool TestCap61::configure(ResourceFinder &rf) {
         {
             double min, max;
             rightArmIControlLimits->getLimits(joint,&min,&max);
-            qrMin.addDouble(min);
-            qrMax.addDouble(max);
+            qrMin.addFloat64(min);
+            qrMax.addFloat64(max);
             printf("Joint %d limits: [%f,%f]\n",joint,min,max);
         }
 
@@ -288,8 +288,8 @@ bool TestCap61::configure(ResourceFinder &rf) {
         for(unsigned int joint=0;joint<numLeftArmJoints;joint++)        {
             double min, max;
             leftArmIControlLimits->getLimits(joint,&min,&max);
-            qlMin.addDouble(min);
-            qlMax.addDouble(max);
+            qlMin.addFloat64(min);
+            qlMax.addFloat64(max);
             printf("Joint %d limits: [%f,%f]\n",joint,min,max);
         }
 

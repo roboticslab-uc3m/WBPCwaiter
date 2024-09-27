@@ -86,40 +86,40 @@ void MyRateThread::ReadSensor(){ //recogida de informacion de los sensores de la
 
     /** Force-Sensors **/
 /*    // si fuera necesario
-    _sensor2._initF.fx = _sensor2.bottle.get(0).asDouble(); // Force vector - Right Arm
-    _sensor2._initF.fy = _sensor2.bottle.get(1).asDouble();
-    _sensor2._initF.fz = _sensor2.bottle.get(2).asDouble();
-    _sensor2._initT.mx = _sensor2.bottle.get(3).asDouble(); // Torque vector - Right Arm
-    _sensor2._initT.my = _sensor2.bottle.get(4).asDouble();
-    _sensor2._initT.mz = _sensor2.bottle.get(5).asDouble();
+    _sensor2._initF.fx = _sensor2.bottle.get(0).asFloat64(); // Force vector - Right Arm
+    _sensor2._initF.fy = _sensor2.bottle.get(1).asFloat64();
+    _sensor2._initF.fz = _sensor2.bottle.get(2).asFloat64();
+    _sensor2._initT.mx = _sensor2.bottle.get(3).asFloat64(); // Torque vector - Right Arm
+    _sensor2._initT.my = _sensor2.bottle.get(4).asFloat64();
+    _sensor2._initT.mz = _sensor2.bottle.get(5).asFloat64();
 */
-    _sensor3._initF.fx = _sensor3.bottle.get(0).asDouble(); // Force vector - Left Arm
-    _sensor3._initF.fy = _sensor3.bottle.get(1).asDouble();
-    _sensor3._initF.fz = _sensor3.bottle.get(2).asDouble();
-    _sensor3._initT.mx = _sensor3.bottle.get(3).asDouble(); // Torque vector - Left Arm
-    _sensor3._initT.my = _sensor3.bottle.get(4).asDouble();
-    _sensor3._initT.mz = _sensor3.bottle.get(5).asDouble();
+    _sensor3._initF.fx = _sensor3.bottle.get(0).asFloat64(); // Force vector - Left Arm
+    _sensor3._initF.fy = _sensor3.bottle.get(1).asFloat64();
+    _sensor3._initF.fz = _sensor3.bottle.get(2).asFloat64();
+    _sensor3._initT.mx = _sensor3.bottle.get(3).asFloat64(); // Torque vector - Left Arm
+    _sensor3._initT.my = _sensor3.bottle.get(4).asFloat64();
+    _sensor3._initT.mz = _sensor3.bottle.get(5).asFloat64();
 
     /** Inertial-Sensor **/
 
-    _imu.ang_x = _imu.bottle.get(0).asDouble(); // Angulo en X [deg]
-    _imu.ang_y = _imu.bottle.get(1).asDouble(); // Angulo en Y [deg]
-    _imu.ang_z = _imu.bottle.get(2).asDouble(); // Angulo en Z [deg]
-    _imu.acc_x = _imu.bottle.get(3).asDouble(); //Linear acceleration in X [m/s^2]
+    _imu.ang_x = _imu.bottle.get(0).asFloat64(); // Angulo en X [deg]
+    _imu.ang_y = _imu.bottle.get(1).asFloat64(); // Angulo en Y [deg]
+    _imu.ang_z = _imu.bottle.get(2).asFloat64(); // Angulo en Z [deg]
+    _imu.acc_x = _imu.bottle.get(3).asFloat64(); //Linear acceleration in X [m/s^2]
     x_sensor.push_front(_imu.acc_x);
     x_sensor.pop_back();
-    _imu.acc_y = _imu.bottle.get(4).asDouble(); //Linear acceleration in Y [m/s^2]
+    _imu.acc_y = _imu.bottle.get(4).asFloat64(); //Linear acceleration in Y [m/s^2]
     y_sensor.push_front(_imu.acc_y);
     y_sensor.pop_back();
-    _imu.acc_z = _imu.bottle.get(5).asDouble(); //Linear acceleration in Z [m/s^2]
+    _imu.acc_z = _imu.bottle.get(5).asFloat64(); //Linear acceleration in Z [m/s^2]
     z_sensor.push_front(_imu.acc_z);
     z_sensor.pop_back();
-    _imu.spd_x=_imu.bottle.get(6).asDouble(); // Velocidad angular en X [deg/s]
-    _imu.spd_y=_imu.bottle.get(7).asDouble(); // Velocidad angular en Y [deg/s]
-    _imu.spd_z=_imu.bottle.get(8).asDouble(); // Velocidad angular en Z [deg/s]
-    _imu.mag_x=_imu.bottle.get(9).asDouble(); // Campo magnetico en X
-    _imu.mag_y=_imu.bottle.get(10).asDouble(); // Campo magnetico en Y
-    _imu.mag_z=_imu.bottle.get(11).asDouble(); // Campo magnetico en Z
+    _imu.spd_x=_imu.bottle.get(6).asFloat64(); // Velocidad angular en X [deg/s]
+    _imu.spd_y=_imu.bottle.get(7).asFloat64(); // Velocidad angular en Y [deg/s]
+    _imu.spd_z=_imu.bottle.get(8).asFloat64(); // Velocidad angular en Z [deg/s]
+    _imu.mag_x=_imu.bottle.get(9).asFloat64(); // Campo magnetico en X
+    _imu.mag_y=_imu.bottle.get(10).asFloat64(); // Campo magnetico en Y
+    _imu.mag_z=_imu.bottle.get(11).asFloat64(); // Campo magnetico en Z
 }
 
 /************************************************************************/

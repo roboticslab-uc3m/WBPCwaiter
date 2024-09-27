@@ -211,9 +211,9 @@ void ThreadImpl::calcParam_D(){       /** Calculating _d parameter **/
 
 /*    Bottle ch3;
     portFt3->read(ch3); // lectura del sensor JR3 ch3 - left hand
-    _FTLeftHand._initF.fx = ch3.get(0).asDouble(); // momento eje Y
-    _FTLeftHand._initT.my = ch3.get(4).asDouble(); // momento eje Y
-    _FTLeftHand._initT.mx = ch3.get(5).asDouble(); // momento eje Y*/
+    _FTLeftHand._initF.fx = ch3.get(0).asFloat64(); // momento eje Y
+    _FTLeftHand._initT.my = ch3.get(4).asFloat64(); // momento eje Y
+    _FTLeftHand._initT.mx = ch3.get(5).asFloat64(); // momento eje Y*/
 
     readSensorsFT3();
 
@@ -286,24 +286,24 @@ void ThreadImpl::readSensorsIMU()       /** Reading input messages from IMU SENS
         //--- Inertial-Sensor
     Bottle imu;
     portImu->read(imu); // lectura del sensor IMU
-    ang_x = imu.get(0).asDouble(); // Angulo en X [deg]
-    //ang_y = imu.get(1).asDouble(); // Angulo en Y [deg]
-    //ang_z = imu.get(2).asDouble(); // Angulo en Z [deg]
-    acc_x = imu.get(3).asDouble(); //Linear acceleration in X [m/s^2]
+    ang_x = imu.get(0).asFloat64(); // Angulo en X [deg]
+    //ang_y = imu.get(1).asFloat64(); // Angulo en Y [deg]
+    //ang_z = imu.get(2).asFloat64(); // Angulo en Z [deg]
+    acc_x = imu.get(3).asFloat64(); //Linear acceleration in X [m/s^2]
     x_sensor.push_front(acc_x);
     x_sensor.pop_back();
-    //acc_y = imu.get(4).asDouble(); //Linear acceleration in Y [m/s^2]
+    //acc_y = imu.get(4).asFloat64(); //Linear acceleration in Y [m/s^2]
     //y_sensor.push_front(acc_y);
     //y_sensor.pop_back();
-    //acc_z = imu.get(5).asDouble(); //Linear acceleration in Z [m/s^2]
+    //acc_z = imu.get(5).asFloat64(); //Linear acceleration in Z [m/s^2]
     //z_sensor.push_front(acc_z);
     //z_sensor.pop_back();
-    //spd_x=imu.get(6).asDouble(); // Velocidad angular en X [deg/s]
-    //spd_y=imu.get(7).asDouble(); // Velocidad angular en Y [deg/s]
-    //spd_z=imu.get(8).asDouble(); // Velocidad angular en Z [deg/s]
-    //mag_x=imu.get(9).asDouble(); // Campo magnetico en X
-    //mag_y=imu.get(10).asDouble(); // Campo magnetico en Y
-    //mag_z=imu.get(11).asDouble(); // Campo magnetico en Z
+    //spd_x=imu.get(6).asFloat64(); // Velocidad angular en X [deg/s]
+    //spd_y=imu.get(7).asFloat64(); // Velocidad angular en Y [deg/s]
+    //spd_z=imu.get(8).asFloat64(); // Velocidad angular en Z [deg/s]
+    //mag_x=imu.get(9).asFloat64(); // Campo magnetico en X
+    //mag_y=imu.get(10).asFloat64(); // Campo magnetico en Y
+    //mag_z=imu.get(11).asFloat64(); // Campo magnetico en Z
 
     //LOW-PASS FILTER
     ddx = 0.0;
@@ -693,7 +693,7 @@ void ThreadImpl::LIPM3d(){          /** Control - Joint Position Calculus    **/
             CD_WARNING("setPositions failed, not updating control this iteration.\n");      }
 
         yarp::os::Time::delay(1);
-    }   
+    }
 
 /*  // como se genera la InvKin para actuar en posicion
  *  KinRepresentation::encodePose(desX, desX_AAS, KinRepresentation::CARTESIAN, KinRepresentation::AXIS_ANGLE, KinRepresentation::DEGREES);

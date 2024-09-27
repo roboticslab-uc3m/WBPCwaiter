@@ -15,7 +15,7 @@
 #include <signal.h>
 #include <sys/ioctl.h>
 #include <cmath>
-#include "ColorDebug.hpp"
+#include "ColorDebug.h"
 #include <iomanip>
 
 #include "KinematicRepresentation.hpp"
@@ -53,4 +53,3 @@ using namespace roboticslab;
 #define Kp_hip 50 //Proportional gain
 #define Kd_hip 5 //Derivative gain
 #define Ki_hip 1 //Integral gain
-

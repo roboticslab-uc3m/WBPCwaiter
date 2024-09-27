@@ -2,7 +2,7 @@
 
 /*
 el test 91 está asociado para el congreso ??? en el que el topic del paper es el modelo de
-control de la botella basado en whole-body extended 3d dynamicl slopes usando el sensor de 
+control de la botella basado en whole-body extended 3d dynamicl slopes usando el sensor de
 fuerza/par (CH3) y la IMU.
 -----------------------------------------------------
 el test 52 consiste en controlar el zmp de la botella en funcion del sensor FT de la muñeca,
@@ -261,8 +261,8 @@ bool TestCap91::configure(ResourceFinder &rf) {
         {
             double min, max;
             rightArmIControlLimits->getLimits(joint,&min,&max);
-            qrMin.addDouble(min);
-            qrMax.addDouble(max);
+            qrMin.addFloat64(min);
+            qrMax.addFloat64(max);
             printf("Joint %d limits: [%f,%f]\n",joint,min,max);
         }
 
@@ -292,8 +292,8 @@ bool TestCap91::configure(ResourceFinder &rf) {
         for(unsigned int joint=0;joint<numLeftArmJoints;joint++)        {
             double min, max;
             leftArmIControlLimits->getLimits(joint,&min,&max);
-            qlMin.addDouble(min);
-            qlMax.addDouble(max);
+            qlMin.addFloat64(min);
+            qlMax.addFloat64(max);
             printf("Joint %d limits: [%f,%f]\n",joint,min,max);        }
 
     yarp::os::Property leftArmSolverOptions;

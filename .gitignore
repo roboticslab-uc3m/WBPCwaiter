@@ -5,4 +5,9 @@
 .Rhistory
 tags
 CMakeLists.txt.user
-/build*/
+**/build*/
+/.vs/
+/.vscode/
+/.settings/
+/.project
+/.cproject

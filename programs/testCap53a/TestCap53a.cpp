@@ -218,8 +218,8 @@ bool TestCap53a::configure(ResourceFinder &rf) {
         for(unsigned int joint=0;joint<numTrunkJoints;joint++)        {
             double min, max;
             trunkIControlLimits->getLimits(joint,&min,&max);
-            qtMin.addDouble(min);
-            qtMax.addDouble(max);
+            qtMin.addFloat64(min);
+            qtMax.addFloat64(max);
             printf("Joint %d limits: [%f,%f]\n",joint,min,max);        }
 
     yarp::os::Property trunkSolverOptions;
@@ -250,8 +250,8 @@ bool TestCap53a::configure(ResourceFinder &rf) {
         for(unsigned int joint=0;joint<numLeftLegJoints;joint++)        {
             double min, max;
             leftLegIControlLimits->getLimits(joint,&min,&max);
-            qlMin.addDouble(min);
-            qlMax.addDouble(max);
+            qlMin.addFloat64(min);
+            qlMax.addFloat64(max);
             printf("Joint %d limits: [%f,%f]\n",joint,min,max);        }
 
     yarp::os::Property leftLegSolverOptions;
@@ -282,8 +282,8 @@ bool TestCap53a::configure(ResourceFinder &rf) {
         {
             double min, max;
             rightLegIControlLimits->getLimits(joint,&min,&max);
-            qrMin.addDouble(min);
-            qrMax.addDouble(max);
+            qrMin.addFloat64(min);
+            qrMax.addFloat64(max);
             printf("Joint %d limits: [%f,%f]\n",joint,min,max);
         }
 

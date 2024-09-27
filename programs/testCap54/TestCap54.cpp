@@ -254,8 +254,8 @@ bool TestCap54::configure(ResourceFinder &rf) {
         {
             double min, max;
             rightArmIControlLimits->getLimits(joint,&min,&max);
-            qrMin.addDouble(min);
-            qrMax.addDouble(max);
+            qrMin.addFloat64(min);
+            qrMax.addFloat64(max);
             printf("Joint %d limits: [%f,%f]\n",joint,min,max);
         }
 
@@ -285,8 +285,8 @@ bool TestCap54::configure(ResourceFinder &rf) {
         for(unsigned int joint=0;joint<numLeftArmJoints;joint++)        {
             double min, max;
             leftArmIControlLimits->getLimits(joint,&min,&max);
-            qlMin.addDouble(min);
-            qlMax.addDouble(max);
+            qlMin.addFloat64(min);
+            qlMax.addFloat64(max);
             printf("Joint %d limits: [%f,%f]\n",joint,min,max);
         }
 

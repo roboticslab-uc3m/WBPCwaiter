@@ -19,7 +19,7 @@
 #include <signal.h>
 #include <sys/ioctl.h>
 #include <cmath>
-#include "ColorDebug.hpp"
+#include "ColorDebug.h"
 #include <iomanip>
 
 #include "KinematicRepresentation.hpp"

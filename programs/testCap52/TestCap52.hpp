@@ -1,6 +1,6 @@
 // -*- mode:C++; tab-width:4; c-basic-offset:4; indent-tabs-mode:nil -*-
 
-#ifndef __FM_TESTCAP52_HPP__ 
+#ifndef __FM_TESTCAP52_HPP__
 #define __FM_TESTCAP52_HPP__
 
 #include <math.h>
@@ -19,7 +19,7 @@
 #include <signal.h>
 #include <sys/ioctl.h>
 #include <cmath>
-#include "ColorDebug.hpp"
+#include "ColorDebug.h"
 #include <iomanip>
 
 #include <yarp/sig/Vector.h>
@@ -44,7 +44,7 @@ namespace roboticslab
  *
  * @brief testCap52.
  *
- */   
+ */
 class TestCap52 : public RFModule {
 private:
     ThreadImpl threadImpl;

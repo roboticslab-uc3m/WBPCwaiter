@@ -2,14 +2,14 @@
 
 /**
 
-In this testCap53b, we pretend to identificate the LIPM model of TEO 
+In this testCap53b, we pretend to identificate the LIPM model of TEO
 using the recursive least squares identification system of Jorge.
 
-The fisrt goal is generate the model of teo (LIPM) using the same push 
+The fisrt goal is generate the model of teo (LIPM) using the same push
 recovery test done with the DLIPM experiement. The final idea is compare
 both methods and check what is the best to compensate the errors of the
 robot.
-* 
+*
 
 
 **/
@@ -322,8 +322,8 @@ bool TestCap53b::configKdlSolverDevice(){
             {
                 double min, max;
                 rightArmIControlLimits->getLimits(joint,&min,&max);
-                qrMin.addDouble(min);
-                qrMax.addDouble(max);
+                qrMin.addFloat64(min);
+                qrMax.addFloat64(max);
                 printf("Joint %d limits: [%f,%f]\n",joint,min,max);
             }
 
@@ -354,8 +354,8 @@ bool TestCap53b::configKdlSolverDevice(){
             for(unsigned int joint=0;joint<numLeftArmJoints;joint++)        {
                 double min, max;
                 leftArmIControlLimits->getLimits(joint,&min,&max);
-                qlMin.addDouble(min);
-                qlMax.addDouble(max);
+                qlMin.addFloat64(min);
+                qlMax.addFloat64(max);
                 printf("Joint %d limits: [%f,%f]\n",joint,min,max);
             }
 
