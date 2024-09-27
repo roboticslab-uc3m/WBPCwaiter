@@ -4,7 +4,6 @@ if(ENABLE_testCap53a)
 
     add_executable(LOLI_test main.cpp
                              global.h
-                             ratethread.h
                              TestCap53a.hpp
                              TestCap53a.cpp
                              ThreadImpl.hpp

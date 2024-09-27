@@ -4,7 +4,6 @@ if(ENABLE_testCap53)
 
     add_executable(testingDLIPM main.cpp
                                 global.h
-                                ratethread.h
                                 TestCap53.hpp
                                 TestCap53.cpp
                                 ThreadImpl.hpp
