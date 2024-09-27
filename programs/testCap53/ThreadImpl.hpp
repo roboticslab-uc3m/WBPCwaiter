@@ -19,11 +19,7 @@
 #include <signal.h>
 #include <sys/ioctl.h>
 #include <cmath>
-#include "ColorDebug.h"
 #include <iomanip>
-
-#include "KinematicRepresentation.hpp"
-#include "ICartesianSolver.h"
 
 #include "LIPM2d.h"
 #include "global.h"
@@ -31,14 +27,6 @@
 using namespace std;
 using namespace yarp::os;
 using namespace yarp::dev;
-using namespace roboticslab;
-
-#define DEFAULT_QDOT_LIMIT 10
-#define DEFAULT_RATE_MS 20
-
-#define DEFAULT_STRATEGY "Position"
-//#define DEFAULT_STRATEGY "positionDirect"
-//#define DEFAULT_STRATEGY "velocity"
 
 static FILE *fp;
 
@@ -56,8 +44,7 @@ class ThreadImpl : public yarp::os::Thread {
 
     void setIEncodersControl(IEncoders *iRightLegEncoders, IEncoders *iLeftLegEncoders);
     void setIPositionControl(IPositionControl *iRightLegPositionControl,IPositionControl *iLeftLegPositionControl);
-    void setIVelocityControl(IVelocityControl *iRightLegVelocityControl,IVelocityControl *iLeftLegVelocityControl);
-    void setInputPorts(yarp::os::Port *inputPortImu, yarp::os::Port *inputPortFt0, yarp::os::Port *inputPortFt1, yarp::os::Port *inputPortFt2, yarp::os::Port *inputPortFt3);
+    void setInputPorts(yarp::os::Port *inputPortFt0, yarp::os::Port *inputPortFt1);
 
     protected:
 
@@ -92,7 +79,6 @@ class ThreadImpl : public yarp::os::Thread {
         float _xzmp_ft1, _yzmp_ft1; // ZMP-FT sensor 1 (left)
         float _xzmp_ft01, _yzmp_ft01; // ZMP double support
         float Xzmp_ft, Yzmp_ft; // Global ZMP-FT after filter
-        double Xzmp_imu, Yzmp_imu; // Global ZMP-IMU after filter
 
         //-- Control/Movement variables
         float zmp_ref, _ang_ref, _ang_out, ka;
@@ -102,14 +88,9 @@ class ThreadImpl : public yarp::os::Thread {
 
         LIPM2d _evalLIPM; // Discrete-time Space State DLIPM Model evaluation
 
-
         //-- Sensors variables
         yarp::os::Port *portFt0;
         yarp::os::Port *portFt1;
-        yarp::os::Port *portFt2;
-        yarp::os::Port *portFt3;
-        yarp::os::Port *portImu;
-
 
         //-- ThreadImpl Funtions
         bool threadInit();
@@ -120,12 +101,8 @@ class ThreadImpl : public yarp::os::Thread {
 
         void readSensorsFT0();/** Reading from the FT0_JR3_sensor. **/
         void readSensorsFT1();/** Reading from the FT1_JR3_sensor. **/
-        void readSensorsFT2();/** Reading from the FT2_JR3_sensor. **/
-        void readSensorsFT3();/** Reading from the FT3_JR3_sensor. **/
-        void readSensorsIMU();/** Reading from the IMU_XSENS_sensor. **/
 
         void zmpCompFT();/** Calculating ZMP-FT of the body. **/
-        void zmpCompIMU();/** Calculating ZMP-IMU of the body. **/
         void evaluateModel();/** Calculating OUTPUT (Qi) of the legs. **/
         void setJoints();/** Position control. **/
 
@@ -134,60 +111,6 @@ class ThreadImpl : public yarp::os::Thread {
 
         void getInitialTime();
         void getCurrentTime();
-
-        //-- upper body devices variables
-        /** Axes number **/
-        int numHeadJoints;
-        /** Head Device */
-        yarp::dev::PolyDriver headDevice;
-        /** Encoders **/
-        yarp::dev::IEncoders *headIEncoders;
-        /** Head ControlMode Interface */
-        yarp::dev::IControlMode *headIControlMode;
-        /** Head PositionControl Interface */
-        yarp::dev::IPositionControl *headIPositionControl; // para control en posicion
-        /** Head VelocityControl Interface */
-        yarp::dev::IVelocityControl *headIVelocityControl; // para control en velocidad
-
-        /** Axes number **/
-        int numLeftArmJoints;
-        /** Left Arm Device */
-        yarp::dev::PolyDriver leftArmDevice;
-        /** Encoders **/
-        yarp::dev::IEncoders *leftArmIEncoders;
-        /** Left Arm ControlMode Interface */
-        yarp::dev::IControlMode *leftArmIControlMode;
-        /** Left Arm PositionControl Interface */
-        yarp::dev::IPositionControl *leftArmIPositionControl; // para control en posicion
-        /** Left Arm VelocityControl Interface */
-        yarp::dev::IVelocityControl *leftArmIVelocityControl; // para control en velocidad
-
-        /** Axes number **/
-        int numRightArmJoints;
-        /** Right Arm Device */
-        yarp::dev::PolyDriver rightArmDevice;
-        /** Encoders **/
-        yarp::dev::IEncoders *rightArmIEncoders;
-        /** Right Arm ControlMode Interface */
-        yarp::dev::IControlMode *rightArmIControlMode;
-        /** Right Arm PositionControl Interface */
-        yarp::dev::IPositionControl *rightArmIPositionControl; // para control en posicion
-        /** Right Arm VelocityControl Interface */
-        yarp::dev::IVelocityControl *rightArmIVelocityControl; // para control en velocidad
-
-        //-- lower body devices variables
-        /** Axes number **/
-        int numTrunkJoints;
-        /** Trunk Device */
-        yarp::dev::PolyDriver trunkDevice;
-        /** Encoders **/
-        yarp::dev::IEncoders *trunkIEncoders;
-        /** Trunk ControlMode Interface */
-        yarp::dev::IControlMode *trunkIControlMode;
-        /** Trunk PositionControl Interface */
-        yarp::dev::IPositionControl *trunkIPositionControl; // para control en posicion
-        /** Trunk VelocityControl Interface */
-        yarp::dev::IVelocityControl *trunkIVelocityControl; // para control en velocidad
 
         /** Axes number **/
         int numtLegJoints;
@@ -199,8 +122,6 @@ class ThreadImpl : public yarp::os::Thread {
         yarp::dev::IControlMode *leftLegIControlMode;
         /** Left Leg PositionControl Interface */
         yarp::dev::IPositionControl *leftLegIPositionControl; // para control en posicion
-        /** Left Leg VelocityControl Interface */
-        yarp::dev::IVelocityControl *leftLegIVelocityControl; // para control en velocidad
 
         /** Axes number **/
         int numRightLegJoints;
@@ -212,8 +133,6 @@ class ThreadImpl : public yarp::os::Thread {
         yarp::dev::IControlMode *rightLegIControlMode;
         /** Right Leg PositionControl Interface */
         yarp::dev::IPositionControl *rightLegIPositionControl; // para control en posicion
-        /** Right Leg VelocityControl Interface */
-        yarp::dev::IVelocityControl *rightLegIVelocityControl; // para control en velocidad
 
 };
 

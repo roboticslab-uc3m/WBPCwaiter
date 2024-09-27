@@ -13,10 +13,7 @@ if(ENABLE_testCap53)
 
     target_link_libraries(testingDLIPM YARP::YARP_init
                                        YARP::YARP_os
-                                       YARP::YARP_dev
-                                       ROBOTICSLAB::ColorDebug
-                                       ROBOTICSLAB::KinematicsDynamicsInterfaces
-                                       ROBOTICSLAB::KinematicRepresentationLib)
+                                       YARP::YARP_dev)
 
     install(TARGETS testingDLIPM)
 

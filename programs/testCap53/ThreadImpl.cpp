@@ -87,12 +87,8 @@ void ThreadImpl::openingPorts()     /** Opening Ports & Connecting with sensor p
     cout << "[configuring] ... STEP 2 " << endl;
 
     //-- OPEN YARP PORTS
-    //portImu->open("/bodyBal/inertial:i");
     portFt0->open("/bodyBal/jr3ch0:i");
     portFt1->open("/bodyBal/jr3ch1:i");
-    //portFt2->open("/bodyBal/jr3ch2:i");
-    //portFt3->open("/bodyBal/jr3ch3:i");
-
 
     //-- CONNECTIONS PORTS
 
@@ -108,24 +104,6 @@ void ThreadImpl::openingPorts()     /** Opening Ports & Connecting with sensor p
         cerr << "[error] Couldn't connect to YARP port /bodyBal/jr3ch1:i." << endl;
     } else cout << "[success] Connected to /jr3ch1:i." << endl;
     yarp::os::Time::delay(0.5);
-/*    // ft right hand
-    Network::connect("/jr3/ch2:o","/bodyBal/jr3ch2:i");
-    if ( NetworkBase::isConnected("/jr3/ch2:o","/bodyBal/jr3ch2:i") == false ){
-        cerr << "[error] Couldn't connect to YARP port /bodyBal/jr3ch2:i." << endl;
-    } else cout << "[success] Connected to /jr3ch2:i." << endl;
-    yarp::os::Time::delay(0.5);
-    // ft left hand
-    Network::connect("/jr3/ch3:o","/bodyBal/jr3ch3:i");
-    if ( NetworkBase::isConnected("/jr3/ch3:o","/bodyBal/jr3ch3:i") == false ){
-        cerr << "[error] Couldn't connect to YARP port /bodyBal/jr3ch3:i." << endl;
-    } else cout << "[success] Connected to /jr3ch3:i." << endl;
-    yarp::os::Time::delay(0.5);
-    // imu trunk
-    Network::connect("/inertial", "/bodyBal/inertial:i");
-    if ( NetworkBase::isConnected("/inertial", "/bodyBal/inertial:i") == false ){
-        cerr << "[error] Couldn't connect to YARP port /bodyBal/inertial:i." << endl;
-    } else cout << "[success] Connected to IMU." << endl;
-    yarp::os::Time::delay(0.5);*/
 
     return;
 }
@@ -170,82 +148,6 @@ void ThreadImpl::readSensorsFT1()       /** Reading input messages from FT1 SENS
 }
 
 /************************************************************************/
-void ThreadImpl::readSensorsFT2()       /** Reading input messages from FT2 SENSORS    **/
-{
-        //--- FT-Sensor 2 right hand
-    Bottle ch2;
-    portFt2->read(ch2); // lectura del sensor JR3 ch2 - right hand
-    _RH._F.fx = ch2.get(0).asFloat64();
-    _RH._F.fy = ch2.get(1).asFloat64();
-    _RH._F.fz = ch2.get(2).asFloat64();
-    _RH._T.mx = ch2.get(3).asFloat64();
-    _RH._T.my = ch2.get(4).asFloat64();
-    _RH._T.mz = ch2.get(5).asFloat64();
-
-}
-
-/************************************************************************/
-void ThreadImpl::readSensorsFT3()       /** Reading input messages from FT3 SENSORS    **/
-{
-    //--- FT-Sensor 3 left hand
-    Bottle ch3;
-    portFt3->read(ch3); // lectura del sensor JR3 ch3 - left hand
-    _LH._F.fx = ch3.get(0).asFloat64();
-    _LH._F.fy = ch3.get(1).asFloat64();
-    _LH._F.fz = ch3.get(2).asFloat64();
-    _LH._T.mx = ch3.get(3).asFloat64();
-    _LH._T.my = ch3.get(4).asFloat64();
-    _LH._T.mz = ch3.get(5).asFloat64();
-
-}
-
-/************************************************************************/
-void ThreadImpl::readSensorsIMU()       /** Reading input messages from IMU SENSORS    **/
-{
-        //--- Inertial-Sensor
-    Bottle imu;
-    portImu->read(imu); // lectura del sensor IMU
-    ang_x = imu.get(0).asFloat64(); // Angulo en X [deg]
-    ang_y = imu.get(1).asFloat64(); // Angulo en Y [deg]
-    ang_z = imu.get(2).asFloat64(); // Angulo en Z [deg]
-    acc_x = imu.get(3).asFloat64(); //Linear acceleration in X [m/s^2]
-    x_sensor.push_front(acc_x);
-    x_sensor.pop_back();
-    acc_y = imu.get(4).asFloat64(); //Linear acceleration in Y [m/s^2]
-    y_sensor.push_front(acc_y);
-    y_sensor.pop_back();
-    acc_z = imu.get(5).asFloat64(); //Linear acceleration in Z [m/s^2]
-    z_sensor.push_front(acc_z);
-    z_sensor.pop_back();
-    spd_x=imu.get(6).asFloat64(); // Velocidad angular en X [deg/s]
-    spd_y=imu.get(7).asFloat64(); // Velocidad angular en Y [deg/s]
-    spd_z=imu.get(8).asFloat64(); // Velocidad angular en Z [deg/s]
-    //mag_x=imu.get(9).asFloat64(); // Campo magnetico en X
-    //mag_y=imu.get(10).asFloat64(); // Campo magnetico en Y
-    //mag_z=imu.get(11).asFloat64(); // Campo magnetico en Z
-
-    //LOW-PASS FILTER
-    ddx = 0.0;
-    ddy = 0.0;
-    ddz = 0.0;
-    for(deque<double>::iterator it = x_sensor.begin(); it != x_sensor.end(); it++)
-        ddx = ddx + *it;
-    for(deque<double>::iterator it = y_sensor.begin(); it != y_sensor.end(); it++)
-        ddy = ddy + *it;
-    for(deque<double>::iterator it = z_sensor.begin(); it != z_sensor.end(); it++)
-        ddz = ddz + *it;
-    ddx = ddx / samples;
-    ddy = ddy / samples;
-    ddz = ddz / samples;
-
-    //CONVERSION FROM IMU SENSOR COORDINATES TO ROBOT COORDINATES
-     ddx_robot = ddx;
-     ddy_robot = -ddy;
-     ddz_robot = ddz;
-
-}
-
-/************************************************************************/
 void ThreadImpl::getCurrentTime()       /** Get Current Time    **/
 {
     act_time = Time::now() - init_time;
@@ -255,18 +157,8 @@ void ThreadImpl::getCurrentTime()       /** Get Current Time    **/
 /************************************************************************/
 void ThreadImpl::zmpCompFT()        /** Calculating ZMP-FT of the body . **/
 {
-
     //ZMP Equations : Double Support - FT
 
-/*      //Con el coeficiente 1000 - unidades en milimetros
-    _xzmp0 = -(((_my0/10) + e*_fx0)*1000) / _fz0; // xzmp0 in [mm]
-    _yzmp0 = (((_mx0/10) + e*_fy0)*1000) / _fz0; // yzmp0 in [mm]
-
-    _xzmp1 = -(((_my1/10) + e*_fx1)*1000) / _fz1; // xzmp1 in [mm]
-    _yzmp1 = (((_mx1/10) + e*_fy1)*1000) / _fz1; // yzmp1 in [mm]
-*/
-
-    //Sin el coeficiente 1000 - unidades en metros
     _xzmp_ft0 = -(((_RF._T.my/10) + e*_RF._F.fx)) / _RF._F.fz; // xzmp0_ft in [m] right foot
     //_yzmp0_ft = -(((_RF._T.mx/10) + e*_RF._F.fy)) / _RF._F.fz; // xzmp0_ft in [m] right foot
     _xzmp_ft1 = -(((_LF._T.my/10) + e*_LF._F.fx)) / _LF._F.fz; // xzmp1_ft in [m] left foot
@@ -288,28 +180,6 @@ void ThreadImpl::zmpCompFT()        /** Calculating ZMP-FT of the body . **/
     if ((_xzmp_ft01 != _xzmp_ft01) || (_yzmp_ft01 != _yzmp_ft01)){
         printf ("Warning: No zmp data\n");
     }
-
-}
-
-/************************************************************************/
-void ThreadImpl::zmpCompIMU()       /** Calculating ZMP-IMU of the body . **/
-{
-
-    //ZMP Equations : Double Support - IMU
-
-    // OFFSET IMU - eliminando el offset de ddx_robot (aceleracion en X)
-    if (n >=100 && n < 250){
-        sum_x_imu = ddx_robot + sum_x_imu;
-        offs_x_imu = sum_x_imu / (n-150);
-        printf("offs = %f\n", offs_x_imu);
-    }
-
-    ddx_robot = ddx_robot - offs_x_imu; // frontal plane
-    //ddy_robot = ddy_robot - offs_y_imu; // saggital plane
-    //ZERO MOMENT POINT COMPUTATION - IMU
-    Xzmp_imu = Xcom - (Zcom / ddz_robot) * ddx_robot; //ZMP X coordinate [m]
-    //Yzmp_imu = Ycom - (Zcom / ddz_robot) * ddy_robot; //ZMP Y coordinate [m]
-
 }
 
 /************************************************************************/
@@ -320,15 +190,7 @@ void ThreadImpl::evaluateModel()        /** Calculating OUTPUT (Qi) of the legs.
 
     ka = 0.25 * zmp_ref + 9.95; // dudo entre zmp_ref o Xzmp_ft
     _ang_ref = (zmp_ref*(-G))/ (L*(ka-G));
-
-/*    como otra posibilidad para calcular:  _angle_ref
-    if ( ! leftArmIEncoders->getEncoders( encLegs.data() ) )    {
-        CD_WARNING("getEncoders failed, not updating control this iteration.\n");
-        return;    }
-    _angle_ref = encLegs[4];*/
-
     _ang_out =  _evalLIPM.ang_error_out + _ang_ref;
-
 }
 
 /************************************************************************/
@@ -341,28 +203,9 @@ void ThreadImpl::setJoints()        /** Position control **/
 /************************************************************************/
 void ThreadImpl::printData()
 {
-/*        cout << endl << "El angulo 1 es: " << _angle_ref_a << endl;
-    cout << endl << "El angulo 2 es: " << _angle_ref_b << endl;
-    cout << endl << "El angulo 3 es: " << _angle_ref_c << endl;
-    cout << endl << "El angulo 4 es: " << _angle_ref_d << endl;
-    cout << endl << "El angulo 4 es: " << g << endl;
-    cout << endl << "El angulo 4 es: " << ka << endl;
-*/
-    //cout << endl << "El ANKLE pid es: " << pid_output_ankle << endl;
-    //cout << endl << "El HIP pid es: " << pid_output_hip << endl;
-    //cout << endl << "El ZMP REF es: " << setpoint << endl;
-
     cout << endl << "El ZMP REF es: " << zmp_ref << endl;
     cout << endl << "El ZMP FT es: " << Xzmp_ft << endl;
     cout << endl << "El angulo out es: " << _ang_out << endl;
-
-    //cout << endl << "La capture_point es: " << capture_point << endl;
-    //cout << endl << "ZMP_Error_Loli = ("<< _eval_x._zmp_error << ") [mm]" << endl;
-    //cout << endl << "ZMP model es: " << _eval_x.y << endl;
-    //cout << endl << "Num es: " << _num << endl;  _u_ref
-    //cout << endl << "El _u_ref x es: " << _eval_x._u_ref << endl;
-    //cout << endl << "El _angle_error x es: " << _eval_x._angle_error << endl;
-
 }
 
 /************************************************************************/
@@ -402,20 +245,10 @@ void ThreadImpl::setIPositionControl(IPositionControl *iRightLegPositionControl,
 }
 
 /************************************************************************/
-void ThreadImpl::setIVelocityControl(IVelocityControl *iRightLegVelocityControl,IVelocityControl *iLeftLegVelocityControl)
+void ThreadImpl::setInputPorts(Port *inputPortFt0,Port *inputPortFt1)
 {
-    this->rightLegIVelocityControl = iRightLegVelocityControl;
-    this->leftLegIVelocityControl = iLeftLegVelocityControl;
-}
-
-/************************************************************************/
-void ThreadImpl::setInputPorts(Port *inputPortImu,Port *inputPortFt0,Port *inputPortFt1,Port *inputPortFt2,Port *inputPortFt3)
-{
-    this->portImu = inputPortImu;
     this->portFt0 = inputPortFt0;
     this->portFt1 = inputPortFt1;
-    this->portFt2 = inputPortFt2;
-    this->portFt3 = inputPortFt3;
 }
 
-}   // namespace roboticslab
+} // namespace roboticslab
