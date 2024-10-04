@@ -1,11 +1,11 @@
 // -*- mode:C++; tab-width:4; c-basic-offset:4; indent-tabs-mode:nil -*-
 
-#include "ThreadImpl.hpp"
+#include "PeriodicThreadImpl.hpp"
 
 namespace roboticslab
 {
 /************************************************************************/
-bool ThreadImpl::threadInit()
+bool PeriodicThreadImpl::threadInit()
 {
     printf("[success] entrando en ratethread -> init/run\n");
 
@@ -21,57 +21,54 @@ bool ThreadImpl::threadInit()
 }
 
 /************************************************************************/
-void ThreadImpl::run()
+void PeriodicThreadImpl::run()
 {
-    while(!isStopping()) {
+    if (a!=1)    {    // STEP 1 - Creating & Configuring CSV file
+        confCSVfile();
+        a=1;    }
+    if (a==1 && b!=1)    {    // STEP 2 - Opening & Connecting Ports
+        openingPorts();
+        b=1;    }
 
-        if (a!=1)    {    // STEP 1 - Creating & Configuring CSV file
-            confCSVfile();
-            a=1;    }
-        if (a==1 && b!=1)    {    // STEP 2 - Opening & Connecting Ports
-            openingPorts();
-            b=1;    }
+    // ------------------------------------------------------------------------
+    if (a==1 && b==1)
+    {
+        // STEP 3 - main code
 
-        // ------------------------------------------------------------------------
-        if (a==1 && b==1)
-        {
-            // STEP 3 - main code
+        // Test escalon con rampa // generacion del ZMP_ref para test FT sensor
+        // equaction: zmp_ref = (0.0X / 30) * n - 0.X
+        // where x is the ref value
+        // example_1: zmp_ref = (0.05/30)*n - 0.5 ------> for zmp_ref = 0.05 meters
+        // example_2: zmp_ref = (0.09/30)*n - 0.9 ------> for zmp_ref = 0.09 meters
 
-            // Test escalon con rampa // generacion del ZMP_ref para test FT sensor
-            // equaction: zmp_ref = (0.0X / 30) * n - 0.X
-            // where x is the ref value
-            // example_1: zmp_ref = (0.05/30)*n - 0.5 ------> for zmp_ref = 0.05 meters
-            // example_2: zmp_ref = (0.09/30)*n - 0.9 ------> for zmp_ref = 0.09 meters
+        if (n <= 300){zmp_ref = 0.0;}
+        else if (n >= 300 && n <= 330){zmp_ref = (0.05/30)*n - 0.5;} // test from 0.01 to 0.09 [m]
+        else {zmp_ref = zmp_ref;}
 
-            if (n <= 300){zmp_ref = 0.0;}
-            else if (n >= 300 && n <= 330){zmp_ref = (0.05/30)*n - 0.5;} // test from 0.01 to 0.09 [m]
-            else {zmp_ref = zmp_ref;}
+        getInitialTime();
 
-            getInitialTime();
+        readSensorsFT0();
+        readSensorsFT1();
+        zmpCompFT(); // calculation of the ZMP_FT
 
-            readSensorsFT0();
-            readSensorsFT1();
-            zmpCompFT(); // calculation of the ZMP_FT
-
-            if (n>300)  {
-                evaluateModel(); // evaluacion the model and the angle output
-                setJoints(); // applying the ankle movement
-            }
-
-            printData();
-            cout << endl << "Press ENTER to exit..." << endl;
-            cout << "*******************************" << endl << endl;
-            saveInFileCsv();  // saving the information ¡
-            n++;
-            cout << n << endl << endl;
-
-            getCurrentTime();
+        if (n>300)  {
+            evaluateModel(); // evaluacion the model and the angle output
+            setJoints(); // applying the ankle movement
         }
+
+        printData();
+        cout << endl << "Press ENTER to exit..." << endl;
+        cout << "*******************************" << endl << endl;
+        saveInFileCsv();  // saving the information ¡
+        n++;
+        cout << n << endl << endl;
+
+        getCurrentTime();
     }
 }
 
 /************************************************************************/
-void ThreadImpl::confCSVfile()      /** Configuring CSV file    **/
+void PeriodicThreadImpl::confCSVfile()      /** Configuring CSV file    **/
 {
     cout << "[configuring] ... STEP 1 " << endl;
     fp = fopen("../data_testingDLIPM.csv","w+");
@@ -82,7 +79,7 @@ void ThreadImpl::confCSVfile()      /** Configuring CSV file    **/
 }
 
 /************************************************************************/
-void ThreadImpl::openingPorts()     /** Opening Ports & Connecting with sensor programs **/
+void PeriodicThreadImpl::openingPorts()     /** Opening Ports & Connecting with sensor programs **/
 {
     cout << "[configuring] ... STEP 2 " << endl;
 
@@ -109,7 +106,7 @@ void ThreadImpl::openingPorts()     /** Opening Ports & Connecting with sensor p
 }
 
 /************************************************************************/
-void ThreadImpl::getInitialTime()       /** Get Initial Time    **/
+void PeriodicThreadImpl::getInitialTime()       /** Get Initial Time    **/
 {
     if (n==1){init_time = Time::now();}
     init_loop = Time::now();
@@ -118,7 +115,7 @@ void ThreadImpl::getInitialTime()       /** Get Initial Time    **/
 }
 
 /************************************************************************/
-void ThreadImpl::readSensorsFT0()       /** Reading input messages from FT0 SENSORS    **/
+void PeriodicThreadImpl::readSensorsFT0()       /** Reading input messages from FT0 SENSORS    **/
 {
         //--- FT-Sensor 0 right leg
     Bottle ch0;
@@ -133,7 +130,7 @@ void ThreadImpl::readSensorsFT0()       /** Reading input messages from FT0 SENS
 }
 
 /************************************************************************/
-void ThreadImpl::readSensorsFT1()       /** Reading input messages from FT1 SENSORS    **/
+void PeriodicThreadImpl::readSensorsFT1()       /** Reading input messages from FT1 SENSORS    **/
 {
         //--- FT-Sensor 1 left leg
     Bottle ch1;
@@ -148,14 +145,14 @@ void ThreadImpl::readSensorsFT1()       /** Reading input messages from FT1 SENS
 }
 
 /************************************************************************/
-void ThreadImpl::getCurrentTime()       /** Get Current Time    **/
+void PeriodicThreadImpl::getCurrentTime()       /** Get Current Time    **/
 {
     act_time = Time::now() - init_time;
     act_loop = Time::now() - init_loop;
 }
 
 /************************************************************************/
-void ThreadImpl::zmpCompFT()        /** Calculating ZMP-FT of the body . **/
+void PeriodicThreadImpl::zmpCompFT()        /** Calculating ZMP-FT of the body . **/
 {
     //ZMP Equations : Double Support - FT
 
@@ -183,7 +180,7 @@ void ThreadImpl::zmpCompFT()        /** Calculating ZMP-FT of the body . **/
 }
 
 /************************************************************************/
-void ThreadImpl::evaluateModel()        /** Calculating OUTPUT (Qi) of the legs. **/
+void PeriodicThreadImpl::evaluateModel()        /** Calculating OUTPUT (Qi) of the legs. **/
 {
     // obtaining the angle error for the D-LIPM space state
     _evalLIPM.model(Xzmp_ft,zmp_ref);
@@ -194,14 +191,14 @@ void ThreadImpl::evaluateModel()        /** Calculating OUTPUT (Qi) of the legs.
 }
 
 /************************************************************************/
-void ThreadImpl::setJoints()        /** Position control **/
+void PeriodicThreadImpl::setJoints()        /** Position control **/
 {
-    rightLegIPositionControl->positionMove(4, _ang_out); // position in degrees
-    leftLegIPositionControl->positionMove(4, _ang_out);
+    rightLegIPositionDirect->setPosition(4, _ang_out); // position in degrees
+    leftLegIPositionDirect->setPosition(4, _ang_out);
 }
 
 /************************************************************************/
-void ThreadImpl::printData()
+void PeriodicThreadImpl::printData()
 {
     cout << endl << "El ZMP REF es: " << zmp_ref << endl;
     cout << endl << "El ZMP FT es: " << Xzmp_ft << endl;
@@ -209,9 +206,8 @@ void ThreadImpl::printData()
 }
 
 /************************************************************************/
-void ThreadImpl::saveInFileCsv()
+void PeriodicThreadImpl::saveInFileCsv()
 {
-
     fprintf(fp,"\n%.2f", act_time);
 
     fprintf(fp,",%.10f", _RF._F.fx); // f_x - sensor ft 0
@@ -227,25 +223,24 @@ void ThreadImpl::saveInFileCsv()
     fprintf(fp,",%.8f", _xzmp_ft1); // zmp (leftt foot)
 
     fprintf(fp,",%i", n);
-
 }
 
 /************************************************************************/
-void ThreadImpl::setIEncodersControl(IEncoders *iRightLegEncoders, IEncoders *iLeftLegEncoders)
+void PeriodicThreadImpl::setIEncodersControl(IEncoders *iRightLegEncoders, IEncoders *iLeftLegEncoders)
 {
     this->rightLegIEncoders = iRightLegEncoders;
     this->leftLegIEncoders = iLeftLegEncoders;
 }
 
 /************************************************************************/
-void ThreadImpl::setIPositionControl(IPositionControl *iRightLegPositionControl,IPositionControl *iLeftLegPositionControl)
+void PeriodicThreadImpl::setIPositionDirect(IPositionDirect *iRightLegPositionDirect, IPositionDirect *iLeftLegPositionDirect)
 {
-    this->rightLegIPositionControl = iRightLegPositionControl;
-    this->leftLegIPositionControl = iLeftLegPositionControl;
+    this->rightLegIPositionDirect = iRightLegPositionDirect;
+    this->leftLegIPositionDirect = iLeftLegPositionDirect;
 }
 
 /************************************************************************/
-void ThreadImpl::setInputPorts(Port *inputPortFt0,Port *inputPortFt1)
+void PeriodicThreadImpl::setInputPorts(Port *inputPortFt0,Port *inputPortFt1)
 {
     this->portFt0 = inputPortFt0;
     this->portFt1 = inputPortFt1;

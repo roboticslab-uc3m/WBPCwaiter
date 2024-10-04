@@ -24,7 +24,7 @@ using namespace std;
 using namespace yarp::os;
 using namespace yarp::dev;
 
-#include "ThreadImpl.hpp"
+#include "PeriodicThreadImpl.hpp"
 
 #define DEFAULT_ROBOT "/teo"    // Por defecto, usaremos el robot // -> con simulador: "/teoSim"
 
@@ -39,7 +39,7 @@ namespace roboticslab
  */
 class TestCap53 : public RFModule {
 private:
-    ThreadImpl threadImpl;
+    PeriodicThreadImpl * periodicThreadImpl {nullptr};
 
     yarp::os::Port portft0;
     yarp::os::Port portft1;
@@ -52,8 +52,8 @@ private:
     yarp::dev::IEncoders *leftLegIEncoders;
     /** Left Leg ControlMode Interface */
     yarp::dev::IControlMode *leftLegIControlMode;
-    /** Left Leg PositionControl Interface */
-    yarp::dev::IPositionControl *leftLegIPositionControl; // para control en posicion
+    /** Left Leg PositionDirect Interface */
+    yarp::dev::IPositionDirect *leftLegIPositionDirect; // para control en posicion
 
     /** Axes number **/
     int numRightLegJoints;
@@ -63,8 +63,8 @@ private:
     yarp::dev::IEncoders *rightLegIEncoders;
     /** Right Leg ControlMode Interface */
     yarp::dev::IControlMode *rightLegIControlMode;
-    /** Right Leg PositionControl Interface */
-    yarp::dev::IPositionControl *rightLegIPositionControl; // para control en posicion
+    /** Right Leg PositionDirect Interface */
+    yarp::dev::IPositionDirect *rightLegIPositionDirect; // para control en posicion
 
     // -------------------------------------------------------------------------------------
 
@@ -73,7 +73,8 @@ private:
     bool updateModule();
 
 public:
-    bool configure(ResourceFinder &rf);
+    bool configure(ResourceFinder &rf) override;
+    bool close() override;
 };
 
 }  // namespace roboticslab

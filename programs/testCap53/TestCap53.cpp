@@ -18,6 +18,8 @@ we apply the same test (ZMP_ref from 0.01m to 0.09m) to verify if (ZMP_ref = ZMP
 
 #include "TestCap53.hpp"
 
+constexpr auto DEFAULT_PERIOD = 0.05; // [s]
+
 namespace roboticslab
 {
 
@@ -25,13 +27,14 @@ namespace roboticslab
 bool TestCap53::configure(ResourceFinder &rf) {
 
     std::string robot = rf.check("robot",yarp::os::Value(DEFAULT_ROBOT),"name of /robot to be used").asString();
+    double period = rf.check("period",yarp::os::Value(DEFAULT_PERIOD),"period of the thread").asFloat64();
 
     printf("--------------------------------------------------------------\n");
     if (rf.check("help")) {
         printf("testCap53 options:\n");
         printf("\t--help (this help)\t--from [file.ini]\t--context [path]\n");
-        printf("\t--robot ('teo' or 'teoSim')\n");
-        printf("\t--robot: %s [%s]\n",robot.c_str(),DEFAULT_ROBOT);
+        printf("\t--robot ('teo' or 'teoSim'; default: %s)\n",DEFAULT_ROBOT);
+        printf("\t--period (default: %f)\n",DEFAULT_PERIOD);
     }
     printf("--------------------------------------------------------------\n");
     if(rf.check("help")) {
@@ -61,10 +64,10 @@ bool TestCap53::configure(ResourceFinder &rf) {
         return false;
     } else printf("[success] Acquired leftLegIControlMode interface\n");
 
-    if (!leftLegDevice.view(leftLegIPositionControl) ) { // connecting our device with "position control 2" interface (configuring our device: speed, acceleration... and sending joint positions)
-        printf("[warning] Problems acquiring leftLegIPositionControl interface\n");
+    if (!leftLegDevice.view(leftLegIPositionDirect) ) { // connecting our device with "position control 2" interface (configuring our device: speed, acceleration... and sending joint positions)
+        printf("[warning] Problems acquiring leftLegIPositionDirect interface\n");
         return false;
-    } else printf("[success] Acquired leftLegIPositionControl interface\n");
+    } else printf("[success] Acquired leftLegIPositionDirect interface\n");
     /** **************************************************************************************
      * ******************************************************************************** **/
 
@@ -87,36 +90,44 @@ bool TestCap53::configure(ResourceFinder &rf) {
         printf("[warning] Problems acquiring rightLegIControlMode interface\n");
         return false;
     } else printf("[success] Acquired rightLegIControlMode interface\n");
-    if (!rightLegDevice.view(rightLegIPositionControl) ) { // connecting our device with "position control 2" interface (configuring our device: speed, acceleration... and sending joint positions)
-        printf("[warning] Problems acquiring rightLegIPositionControl interface\n");
+    if (!rightLegDevice.view(rightLegIPositionDirect) ) { // connecting our device with "position control 2" interface (configuring our device: speed, acceleration... and sending joint positions)
+        printf("[warning] Problems acquiring rightLegIPositionDirect interface\n");
         return false;
-    } else printf("[success] Acquired rightLegIPositionControl interface\n");
+    } else printf("[success] Acquired rightLegIPositionDirect interface\n");
     /** **************************************************************************************
      * ******************************************************************************** **/
 
     // ----- SET CONTROL MODES -----
-    leftLegIPositionControl->getAxes(&numLeftLegJoints);
-    std::vector<int> leftLegControlModes(numLeftLegJoints,VOCAB_CM_POSITION);
+    leftLegIPositionDirect->getAxes(&numLeftLegJoints);
+    std::vector<int> leftLegControlModes(numLeftLegJoints,VOCAB_CM_POSITION_DIRECT);
     if(! leftLegIControlMode->setControlModes( leftLegControlModes.data() )){
-        printf("[warning] Problems setting position control mode of: left-Leg\n");
+        printf("[warning] Problems setting position direct control mode of: left-Leg\n");
         return false;
     }
-    rightLegIPositionControl->getAxes(&numRightLegJoints);
-    std::vector<int> rightLegControlModes(numRightLegJoints,VOCAB_CM_POSITION);
+    rightLegIPositionDirect->getAxes(&numRightLegJoints);
+    std::vector<int> rightLegControlModes(numRightLegJoints,VOCAB_CM_POSITION_DIRECT);
     if(! rightLegIControlMode->setControlModes(rightLegControlModes.data())){
-        printf("[warning] Problems setting position control mode of: right-Leg\n");
+        printf("[warning] Problems setting position direct control mode of: right-Leg\n");
         return false;
     }
     /** **************************************************************************************
      * ******************************************************************************** **/
 
-    //-- Conection between TestCap53 & ThreadImpl
-    threadImpl.setIEncodersControl(rightLegIEncoders,leftLegIEncoders);
-    threadImpl.setIPositionControl(rightLegIPositionControl,leftLegIPositionControl);
-    threadImpl.setInputPorts(&portft0,&portft1);
+    //-- Conection between TestCap53 & PeriodicThreadImpl
+    periodicThreadImpl = new PeriodicThreadImpl(period);
+    periodicThreadImpl->setIEncodersControl(rightLegIEncoders,leftLegIEncoders);
+    periodicThreadImpl->setIPositionDirect(rightLegIPositionDirect,leftLegIPositionDirect);
+    periodicThreadImpl->setInputPorts(&portft0,&portft1);
 
-    threadImpl.start();
+    periodicThreadImpl->start();
 
+    return true;
+}
+
+/************************************************************************/
+bool TestCap53::close() {
+    delete periodicThreadImpl;
+    periodicThreadImpl = nullptr;
     return true;
 }
 
@@ -135,7 +146,7 @@ bool TestCap53::updateModule() {
 bool TestCap53::interruptModule() {
     printf("Test51 closing...\n");
 
-    threadImpl.stop();
+    periodicThreadImpl->stop();
 
     rightLegDevice.close();
     leftLegDevice.close();

@@ -6,8 +6,8 @@ if(ENABLE_testCap53)
                                 global.h
                                 TestCap53.hpp
                                 TestCap53.cpp
-                                ThreadImpl.hpp
-                                ThreadImpl.cpp
+                                PeriodicThreadImpl.hpp
+                                PeriodicThreadImpl.cpp
                                 LIPM2d.h
                                 LIPM2d.cpp)
 
