@@ -6,17 +6,14 @@ if(ENABLE_testCap53)
                                 global.h
                                 TestCap53.hpp
                                 TestCap53.cpp
-                                ThreadImpl.hpp
-                                ThreadImpl.cpp
+                                PeriodicThreadImpl.hpp
+                                PeriodicThreadImpl.cpp
                                 LIPM2d.h
                                 LIPM2d.cpp)
 
     target_link_libraries(testingDLIPM YARP::YARP_init
                                        YARP::YARP_os
-                                       YARP::YARP_dev
-                                       ROBOTICSLAB::ColorDebug
-                                       ROBOTICSLAB::KinematicsDynamicsInterfaces
-                                       ROBOTICSLAB::KinematicRepresentationLib)
+                                       YARP::YARP_dev)
 
     install(TARGETS testingDLIPM)
 

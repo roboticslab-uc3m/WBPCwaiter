@@ -3,7 +3,6 @@
 #include <yarp/os/all.h>
 #include <yarp/dev/all.h>
 #include <fstream>
-#include <deque>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
@@ -15,7 +14,6 @@
 #include <signal.h>
 #include <sys/ioctl.h>
 #include <cmath>
-#include "ColorDebug.h"
 #include <iomanip>
 
 #include "KinematicRepresentation.hpp"
